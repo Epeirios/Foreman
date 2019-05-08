@@ -177,6 +177,8 @@
     <Compile Include="Mod.cs" />
     <Compile Include="Models\ProductionNode.cs" />
     <Compile Include="Models\Solver\ProductionSolver.cs" />
+    <Compile Include="Presenters\LoadingPresenter.cs" />
+    <Compile Include="Presenters\MainFormPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Forms\ProgressForm.cs">
       <SubType>Form</SubType>
@@ -210,6 +212,20 @@
     </Compile>
     <Compile Include="Controls\ItemChooserControl.Designer.cs">
       <DependentUpon>ItemChooserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ILoadingView.cs" />
+    <Compile Include="Views\IMainForm.cs" />
+    <Compile Include="Views\LoadingView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\LoadingView.Designer.cs">
+      <DependentUpon>LoadingView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ZipStorer.cs" />
     <EmbeddedResource Include="Controls\CheckboxListWithErrors.resx">
@@ -262,6 +278,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\RecipeChooserSupplyNodeOption.resx">
       <DependentUpon>ItemChooserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\LoadingView.resx">
+      <DependentUpon>LoadingView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Foreman_TemporaryKey.pfx" />

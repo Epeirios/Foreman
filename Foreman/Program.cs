@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows;
+using Foreman.Views;
+using Foreman.Presenters;
 
 namespace Foreman
 {
@@ -16,7 +18,16 @@ namespace Foreman
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+            
+            var loadingView = new LoadingView();
+
+            var loadingPresenter = new LoadingPresenter(loadingView);
+
+            var mainForm = new Views.MainForm(loadingView);
+
+            mainForm.Tag = new MainFormPresenter(mainForm, loadingPresenter);
+
+			Application.Run(mainForm);
 		}
 	}
 }
