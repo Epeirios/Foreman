@@ -6,13 +6,13 @@ namespace Foreman
 {
     public class FoundInstallation
     {
-        public string path;
-        public Version version;
+        public string DirPath { get; set; }
+        public Version Version { get; set; }
 
-        protected FoundInstallation(string path, Version version)
+        protected FoundInstallation(string dirPath, Version version)
         {
-            this.path = path;
-            this.version = version;
+            this.DirPath = dirPath;
+            this.Version = version;
         }
 
         public static FoundInstallation GetInstallationFromPath(string factorioPath)
@@ -29,7 +29,7 @@ namespace Foreman
             }
             catch (Exception)
             {
-                ErrorLogging.LogLine(String.Format("The mod at '{0}' has an invalid info.json file", infoFile));
+                ErrorLogging.LogLine(String.Format("The Installation at '{0}' has an invalid info.json file", infoFile));
             }
 
             if (json == "")
@@ -39,7 +39,7 @@ namespace Foreman
 
             if (!Version.TryParse(newMod.version, out newMod.parsedVersion))
             {
-                newMod.parsedVersion = new Version(0, 0, 0, 0);
+                newMod.parsedVersion = new Version(0,0,0);
             }
 
             return new FoundInstallation(factorioPath, newMod.parsedVersion);

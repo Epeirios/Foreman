@@ -114,6 +114,10 @@
   <ItemGroup>
     <Compile Include="Assembler.cs" />
     <Compile Include="AssemblerBox.cs" />
+    <Compile Include="BusinessLogic\GameDirectoriesManager.cs" />
+    <Compile Include="BusinessLogic\IGameDirectoriesManager.cs" />
+    <Compile Include="BusinessLogic\IPropertiesManager.cs" />
+    <Compile Include="BusinessLogic\PropertiesManager.cs" />
     <Compile Include="CancellableProgress.cs" />
     <Compile Include="Controls\CheckboxListWithErrors.cs">
       <SubType>Component</SubType>
@@ -218,6 +222,22 @@
     <Compile Include="Controls\ItemChooserControl.Designer.cs">
       <DependentUpon>ItemChooserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\EventArgs\StringEventArgs.cs" />
+    <Compile Include="Views\Controls\EventArgs\RadioButtonEventArgs.cs" />
+    <Compile Include="Views\Controls\FactorioGameDicrectoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Controls\FactorioGameDicrectoryControl.Designer.cs">
+      <DependentUpon>FactorioGameDicrectoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\FactorioModDirectoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Controls\FactorioModDirectoryControl.Designer.cs">
+      <DependentUpon>FactorioModDirectoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\IFactorioGameDirectoryControl.cs" />
+    <Compile Include="Views\Controls\IFactorioModDirectoryControl.cs" />
     <Compile Include="Views\ILoadingView.cs" />
     <Compile Include="Views\IMainForm.cs" />
     <Compile Include="Views\ISettingsView.cs" />
@@ -290,6 +310,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\RecipeChooserSupplyNodeOption.resx">
       <DependentUpon>ItemChooserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Controls\FactorioGameDicrectoryControl.resx">
+      <DependentUpon>FactorioGameDicrectoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Controls\FactorioModDirectoryControl.resx">
+      <DependentUpon>FactorioModDirectoryControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\LoadingView.resx">
       <DependentUpon>LoadingView.cs</DependentUpon>

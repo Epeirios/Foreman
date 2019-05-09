@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Windows;
 using Foreman.Views;
 using Foreman.Presenters;
+using Foreman.BusinessLogic;
 
 namespace Foreman
 {
@@ -22,14 +23,19 @@ namespace Foreman
             var loadingView = new LoadingView();
             var settingsView = new SettingsView();
 
+            var gameDirectoriesFinder = new GameDirectoriesManager();
+            var propertiesManager = new PropertiesManager();
+
             loadingView.Tag = new LoadingPresenter(loadingView);
-            settingsView.Tag = new SettingsPresenter(settingsView);
+            settingsView.Tag = new SettingsPresenter(settingsView, gameDirectoriesFinder);
 
             var mainForm = new Views.MainForm(loadingView, settingsView);
 
             mainForm.Tag = new MainFormPresenter(mainForm);
 
-			Application.Run(mainForm);
+            propertiesManager.SetupProperties();
+
+            Application.Run(mainForm);
 		}
 	}
 }

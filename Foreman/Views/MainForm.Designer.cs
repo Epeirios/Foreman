@@ -41,19 +41,20 @@
             this.tableLayoutPanelMainForm.RowCount = 1;
             this.tableLayoutPanelMainForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelMainForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 361F));
-            this.tableLayoutPanelMainForm.Size = new System.Drawing.Size(584, 361);
+            this.tableLayoutPanelMainForm.Size = new System.Drawing.Size(584, 461);
             this.tableLayoutPanelMainForm.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 361);
+            this.ClientSize = new System.Drawing.Size(584, 461);
             this.Controls.Add(this.tableLayoutPanelMainForm);
-            this.MinimumSize = new System.Drawing.Size(600, 400);
+            this.MinimumSize = new System.Drawing.Size(600, 500);
             this.Name = "MainForm";
             this.Text = "Foreman";
             this.ResumeLayout(false);
+
         }
 
         #endregion

@@ -72,7 +72,7 @@ namespace Foreman
                     }
                     else
                     {
-                        Properties.Settings.Default["FactorioPath"] = installations[0].path;
+                        Properties.Settings.Default["FactorioPath"] = installations[0].DirPath;
                     }
 
                     Properties.Settings.Default.Save();

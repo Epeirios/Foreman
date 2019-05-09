@@ -1128,3 +1128,7 @@ ForemanTest/obj/Debug/
 Foreman/bin/Release/
 
 Foreman/obj/x86/Debug/
+
+ForemanTest/bin/
+
+Foreman/obj/

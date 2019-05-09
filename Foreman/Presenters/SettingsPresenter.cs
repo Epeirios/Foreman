@@ -1,5 +1,7 @@
-﻿using Foreman.Events;
+﻿using Foreman.BusinessLogic;
+using Foreman.Events;
 using Foreman.Views;
+using Foreman.Views.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -11,103 +13,128 @@ namespace Foreman.Presenters
     public class SettingsPresenter
     {
         private ISettingsView settingsView;
+        private IGameDirectoriesManager gameDirectoriesManager;
 
-        public SettingsPresenter(ISettingsView settingsView)
+        private string currentGameDirectory;
+        private string currentModDirectory;
+        private string currentLanguage;
+
+        public SettingsPresenter(ISettingsView settingsView, IGameDirectoriesManager gameDirectoriesManager)
         {
             this.settingsView = settingsView;
+            this.gameDirectoriesManager = gameDirectoriesManager;
+
+            currentGameDirectory = gameDirectoriesManager.GetCurrentGameDirectory();
+            currentModDirectory = gameDirectoriesManager.GetCurrentModDirectory();
+            currentLanguage = Properties.Settings.Default.Language;
+
+            settingsView.SaveButtonPressed += SettingsView_SaveButtonPressed;
+
+            settingsView.FactorioGameDirectoryControl.RadioButtonChanged += FactorioGameDirectoryControl_RadioButtonChanged;
+            settingsView.FactorioGameDirectoryControl.ManualDirectoryNavigateButtonPressed += FactorioGameDirectoryControl_ManualDirectoryNavigateButtonPressed;
+            settingsView.FactorioGameDirectoryControl.ManualDirectoryChanged += FactorioGameDirectoryControl_ManualDirectoryChanged;
+            settingsView.FactorioGameDirectoryControl.SelectedFoundDirectoryChanged += FactorioGameDirectoryControl_SelectedFoundDirectoryChanged;
 
             EventAggregator.Instance.Subscribe<MainFormLoadedMessage>(m => SetupDirs());
         }
 
+        private void SettingsView_SaveButtonPressed(object sender, EventArgs e)
+        {
+            if (currentGameDirectory != null)
+            {
+                Properties.Settings.Default.FactorioPath = currentGameDirectory;
+            }
+
+            if (currentModDirectory != null)
+            {
+                Properties.Settings.Default.FactorioPath = currentModDirectory;
+            }
+        }
+
+        private void FactorioGameDirectoryControl_SelectedFoundDirectoryChanged(object sender, StringEventArgs e)
+        {
+            FoundInstallation inst = FoundInstallation.GetInstallationFromPath(e.Value);
+
+            if (inst != null)
+            {
+                currentGameDirectory = inst.DirPath;
+                settingsView.FactorioGameDirectoryControl.FoundDirVersion = inst.Version;
+            }
+            else
+            {
+                settingsView.FactorioGameDirectoryControl.FoundDirVersion = new Version("0.0.0");
+            }
+        }
+
+        private void FactorioGameDirectoryControl_ManualDirectoryChanged(object sender, StringEventArgs e)
+        {
+            FoundInstallation inst = FoundInstallation.GetInstallationFromPath(e.Value);
+
+            if (inst != null)
+            {
+                settingsView.FactorioGameDirectoryControl.ManualDirVersion = inst.Version;
+            }
+            else
+            {
+                settingsView.FactorioGameDirectoryControl.ManualDirVersion = new Version("0.0.0");
+            }
+        }
+
+        private void FactorioGameDirectoryControl_ManualDirectoryNavigateButtonPressed(object sender, StringEventArgs e)
+        {
+            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
+            {
+                if (Directory.Exists(e.Value))
+                {
+                    dialog.SelectedPath = e.Value;
+                }
+                var result = dialog.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    settingsView.FactorioGameDirectoryControl.ManualDir = dialog.SelectedPath;
+                }
+            }
+        }
+
+        private void FactorioGameDirectoryControl_RadioButtonChanged(object sender, RadioButtonEventArgs e)
+        {
+            settingsView.FactorioGameDirectoryControl.RadioButtonFocus(e.RadioButtonStatesEnum);
+        }
+
         private void SetupDirs()
         {
-            //I changed the name of the variable, so this copies the value over for people who are upgrading their Foreman version
-            if (Properties.Settings.Default.FactorioPath == "" && Properties.Settings.Default.FactorioDataPath != "")
+            FoundInstallation[] gameDirectories = gameDirectoriesManager.GameDirectories;
+            string[] modDirectories = gameDirectoriesManager.ModDirectories;
+
+            if (currentGameDirectory != null && currentModDirectory != null)
             {
-                Properties.Settings.Default["FactorioPath"] = Path.GetDirectoryName(Properties.Settings.Default.FactorioDataPath);
-                Properties.Settings.Default["FactorioDataPath"] = "";
+                //TODO skip settings screen
             }
 
-            if (!Directory.Exists(Properties.Settings.Default.FactorioPath))
+            if (gameDirectories.Length == 0)
             {
-                List<FoundInstallation> installations = new List<FoundInstallation>();
-                String steamFolder = Path.Combine("Steam", "steamapps", "common");
-                foreach (String defaultPath in new String[]{
-                  Path.Combine(Environment.GetEnvironmentVariable("PROGRAMFILES(X86)"), steamFolder, "Factorio"),
-                  Path.Combine(Environment.GetEnvironmentVariable("ProgramW6432"), steamFolder, "Factorio"),
-                  Path.Combine(Environment.GetEnvironmentVariable("PROGRAMFILES(X86)"), "Factorio"),
-                  Path.Combine(Environment.GetEnvironmentVariable("ProgramW6432"), "Factorio"),
-                  Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Applications", "factorio.app", "Contents")}) //Not actually tested on a Mac
+                settingsView.FactorioGameDirectoryControl.RadioButtonFocus(RadioButtonStatesEnum.manualDirectory);
+                settingsView.FactorioGameDirectoryControl.RadioButtonToggleEnabled(RadioButtonStatesEnum.foundDirectories, false);
+            }
+            else
+            {
+                List<string> strGameDirs = new List<string>();
+
+                foreach (var item in gameDirectories)
                 {
-                    if (Directory.Exists(defaultPath))
-                    {
-                        FoundInstallation inst = FoundInstallation.GetInstallationFromPath(defaultPath);
-                        if (inst != null)
-                            installations.Add(inst);
-                    }
+                    strGameDirs.Add(item.DirPath);
                 }
 
-                if (installations.Count > 0)
-                {
-                    if (installations.Count > 1)
-                    {
-                        using (InstallationChooserForm form = new InstallationChooserForm(installations))
-                        {
-                            if (form.ShowDialog() == DialogResult.OK && form.SelectedPath != null)
-                            {
-                                Properties.Settings.Default["FactorioPath"] = form.SelectedPath;
-                            }
-                            else
-                            {
-                                form.Close();
-                                form.Dispose();
-                                return;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Properties.Settings.Default["FactorioPath"] = installations[0].path;
-                    }
-
-                    Properties.Settings.Default.Save();
-                }
+                settingsView.FactorioGameDirectoryControl.SetFoundGameDirectories(strGameDirs.ToArray());
+                settingsView.FactorioGameDirectoryControl.RadioButtonFocus(RadioButtonStatesEnum.foundDirectories);
+                settingsView.FactorioGameDirectoryControl.SelectedDir = strGameDirs[0];
             }
 
-            if (!Directory.Exists(Properties.Settings.Default.FactorioPath))
+            if (currentGameDirectory != null)
             {
-                using (DirectoryChooserForm form = new DirectoryChooserForm(""))
-                {
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        Properties.Settings.Default["FactorioPath"] = form.SelectedPath;
-                        Properties.Settings.Default.Save();
-                    }
-                    else
-                    {
-                        form.Close();
-                        form.Dispose();
-                        return;
-                    }
-                }
+                settingsView.FactorioGameDirectoryControl.ManualDir = currentGameDirectory;
             }
-
-            if (!Directory.Exists(Properties.Settings.Default.FactorioModPath))
-            {
-                if (Directory.Exists(Path.Combine(Properties.Settings.Default.FactorioPath, "mods")))
-                {
-                    Properties.Settings.Default["FactorioModPath"] = Path.Combine(Properties.Settings.Default.FactorioPath, "mods");
-                }
-                else if (Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "factorio", "mods")))
-                {
-                    Properties.Settings.Default["FactorioModPath"] = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "factorio", "mods");
-                }
-            }
-
-            if (Properties.Settings.Default.EnabledMods == null) Properties.Settings.Default.EnabledMods = new StringCollection();
-            if (Properties.Settings.Default.EnabledAssemblers == null) Properties.Settings.Default.EnabledAssemblers = new StringCollection();
-            if (Properties.Settings.Default.EnabledMiners == null) Properties.Settings.Default.EnabledMiners = new StringCollection();
-            if (Properties.Settings.Default.EnabledModules == null) Properties.Settings.Default.EnabledModules = new StringCollection();
         }
     }
 }

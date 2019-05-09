@@ -23,7 +23,7 @@ namespace Foreman
 
             foreach (FoundInstallation i in installations)
             {
-                this.comboBox1.Items.Add(i.path + " v" + i.version);
+                this.comboBox1.Items.Add(i.DirPath + " v" + i.Version);
             }
 		}
 
@@ -35,7 +35,7 @@ namespace Foreman
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedPath = this.installations[this.comboBox1.SelectedIndex].path;
+            SelectedPath = this.installations[this.comboBox1.SelectedIndex].DirPath;
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Foreman.Views.Controls;
 
 namespace Foreman.Views
 {
@@ -15,6 +16,16 @@ namespace Foreman.Views
         public SettingsView()
         {
             InitializeComponent();
+        }
+
+        public IFactorioGameDirectoryControl FactorioGameDirectoryControl { get { return factorioGameDicrectoryControl2; } }
+        public IFactorioModDirectoryControl FactorioModDirectoryControl { get { return factorioModDirectoryControl2; } }
+
+        public event EventHandler SaveButtonPressed;
+
+        private void buttonSaveSettings_Click(object sender, EventArgs e)
+        {
+            SaveButtonPressed(this, new EventArgs());
         }
     }
 }
