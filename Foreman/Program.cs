@@ -20,12 +20,14 @@ namespace Foreman
 			Application.SetCompatibleTextRenderingDefault(false);
             
             var loadingView = new LoadingView();
+            var settingsView = new SettingsView();
 
-            var loadingPresenter = new LoadingPresenter(loadingView);
+            loadingView.Tag = new LoadingPresenter(loadingView);
+            settingsView.Tag = new SettingsPresenter(settingsView);
 
-            var mainForm = new Views.MainForm(loadingView);
+            var mainForm = new Views.MainForm(loadingView, settingsView);
 
-            mainForm.Tag = new MainFormPresenter(mainForm, loadingPresenter);
+            mainForm.Tag = new MainFormPresenter(mainForm);
 
 			Application.Run(mainForm);
 		}

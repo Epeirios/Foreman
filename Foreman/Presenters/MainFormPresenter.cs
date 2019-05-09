@@ -1,4 +1,5 @@
-﻿using Foreman.Views;
+﻿using Foreman.Events;
+using Foreman.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,19 @@ namespace Foreman.Presenters
     public class MainFormPresenter
     {
         IMainForm mainForm;
-        LoadingPresenter loadingPresenter;
 
-        public MainFormPresenter(IMainForm mainForm, LoadingPresenter loadingPresenter)
+        public MainFormPresenter(IMainForm mainForm)
         {
             this.mainForm = mainForm;
-            this.loadingPresenter = loadingPresenter;
 
-            mainForm.ShowLoadingView();
+            mainForm.MainFormLoaded += MainFormLoaded;
+
+            mainForm.ShowSettingsView();
+        }
+
+        private void MainFormLoaded(object sender, EventArgs e)
+        {
+            EventAggregator.Instance.Publish(new MainFormLoadedMessage());
         }
     }
 }

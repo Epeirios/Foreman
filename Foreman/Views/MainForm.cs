@@ -12,19 +12,37 @@ namespace Foreman.Views
 {
     public partial class MainForm : Form, IMainForm
     {
-        private Control loadingView;
+        private readonly Control loadingView;
+        private readonly Control settingsView;
 
-        public MainForm(Control loadingView)
+        public MainForm(Control loadingView, Control settingsView)
         {
             InitializeComponent();
 
             this.loadingView = loadingView;
+            this.settingsView = settingsView;
+        }
+
+        public event EventHandler MainFormLoaded
+        {
+            add { this.Load += value; }
+            remove { this.Load -= value; }
         }
 
         public void ShowLoadingView()
         {
+            SetMainFormView(loadingView);
+        }
+
+        public void ShowSettingsView()
+        {
+            SetMainFormView(settingsView);
+        }
+
+        private void SetMainFormView(Control view)
+        {
             tableLayoutPanelMainForm.Controls.Clear();
-            tableLayoutPanelMainForm.Controls.Add(loadingView);
+            tableLayoutPanelMainForm.Controls.Add(view);
             tableLayoutPanelMainForm.Controls[0].Dock = DockStyle.Fill;
         }
     }

@@ -10,5 +10,8 @@ namespace Foreman.Views
     public interface IMainForm
     {
         void ShowLoadingView();
+        void ShowSettingsView();
+
+        event EventHandler MainFormLoaded;
     }
 }

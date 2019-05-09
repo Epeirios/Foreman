@@ -40,7 +40,7 @@
             this.tableLayoutPanelMainForm.Name = "tableLayoutPanelMainForm";
             this.tableLayoutPanelMainForm.RowCount = 1;
             this.tableLayoutPanelMainForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMainForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelMainForm.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 361F));
             this.tableLayoutPanelMainForm.Size = new System.Drawing.Size(584, 361);
             this.tableLayoutPanelMainForm.TabIndex = 1;
             // 
@@ -52,9 +52,8 @@
             this.Controls.Add(this.tableLayoutPanelMainForm);
             this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "Foreman";
             this.ResumeLayout(false);
-
         }
 
         #endregion

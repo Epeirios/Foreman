@@ -129,6 +129,10 @@
     </Compile>
     <Compile Include="DataCache.cs" />
     <Compile Include="DependencyGraph.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Events\IApplicationEvent.cs" />
+    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\MainFormLoadedMessage.cs" />
     <Compile Include="Forms\InstallationChooserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,6 +183,7 @@
     <Compile Include="Models\Solver\ProductionSolver.cs" />
     <Compile Include="Presenters\LoadingPresenter.cs" />
     <Compile Include="Presenters\MainFormPresenter.cs" />
+    <Compile Include="Presenters\SettingsPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Forms\ProgressForm.cs">
       <SubType>Form</SubType>
@@ -215,6 +220,7 @@
     </Compile>
     <Compile Include="Views\ILoadingView.cs" />
     <Compile Include="Views\IMainForm.cs" />
+    <Compile Include="Views\ISettingsView.cs" />
     <Compile Include="Views\LoadingView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -226,6 +232,12 @@
     </Compile>
     <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SettingsView.Designer.cs">
+      <DependentUpon>SettingsView.cs</DependentUpon>
     </Compile>
     <Compile Include="ZipStorer.cs" />
     <EmbeddedResource Include="Controls\CheckboxListWithErrors.resx">
@@ -284,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SettingsView.resx">
+      <DependentUpon>SettingsView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Foreman_TemporaryKey.pfx" />
