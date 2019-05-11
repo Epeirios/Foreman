@@ -18,14 +18,37 @@ namespace Foreman.Views
             InitializeComponent();
         }
 
-        public IFactorioGameDirectoryControl FactorioGameDirectoryControl { get { return factorioGameDicrectoryControl2; } }
-        public IFactorioModDirectoryControl FactorioModDirectoryControl { get { return factorioModDirectoryControl2; } }
+        public event EventHandler SaveAndApplyButtonPressed;
+        public event EventHandler CancelButtonPressed;
 
-        public event EventHandler SaveButtonPressed;
-
-        private void buttonSaveSettings_Click(object sender, EventArgs e)
+        public void SetCancelButtonText(string text)
         {
-            SaveButtonPressed(this, new EventArgs());
+            throw new NotImplementedException();
+        }
+
+        public void SetSaveAndApplyButtonText(string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetSettingsControls(ISettingsControl[] settingsControls)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetSettingsLabel(string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonSaveAndApply_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

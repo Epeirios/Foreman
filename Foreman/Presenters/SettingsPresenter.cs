@@ -4,7 +4,6 @@ using Foreman.Views;
 using Foreman.Views.Controls;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.IO;
 using System.Windows.Forms;
 
@@ -28,7 +27,30 @@ namespace Foreman.Presenters
             currentModDirectory = gameDirectoriesManager.GetCurrentModDirectory();
             currentLanguage = Properties.Settings.Default.Language;
 
-            settingsView.SaveButtonPressed += SettingsView_SaveButtonPressed;
+            IDirectorySettingControl gameDirectorySettingControl = new DirectorySettingControl();
+            gameDirectorySettingControl.SetDirectotyLabel("Game directory");
+            gameDirectorySettingControl.SetInfoLabel("Game version");
+            //gameDirectorySettingControl.SetDirecties();
+
+            IDirectorySettingControl modDirectorySettingControl = new DirectorySettingControl();
+            modDirectorySettingControl.SetDirectotyLabel("Mod directory");
+            modDirectorySettingControl.SetInfoLabel("Mods in modlist");
+
+            ILanguageSettingControl languageSettingControl = new LanguageSettingControl();
+
+            ISettingsControl[] settingsControls =
+            {
+                gameDirectorySettingControl,
+                modDirectorySettingControl,
+                languageSettingControl
+            };
+
+            settingsView.SaveAndApplyButtonPressed += SettingsView_SaveAndApplyButtonPressed;
+            settingsView.CancelButtonPressed += SettingsView_CancelButtonPressed;
+            settingsView.SetCancelButtonText("Cancel");
+            settingsView.SetSaveAndApplyButtonText("Save and Apply");
+            settingsView.SetSettingsLabel("Settings");
+            settingsView.SetSettingsControls(settingsControls);
 
             settingsView.FactorioGameDirectoryControl.RadioButtonChanged += FactorioGameDirectoryControl_RadioButtonChanged;
             settingsView.FactorioGameDirectoryControl.ManualDirectoryNavigateButtonPressed += FactorioGameDirectoryControl_ManualDirectoryNavigateButtonPressed;
@@ -36,6 +58,16 @@ namespace Foreman.Presenters
             settingsView.FactorioGameDirectoryControl.SelectedFoundDirectoryChanged += FactorioGameDirectoryControl_SelectedFoundDirectoryChanged;
 
             EventAggregator.Instance.Subscribe<MainFormLoadedMessage>(m => SetupDirs());
+        }
+
+        private void SettingsView_CancelButtonPressed(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SettingsView_SaveAndApplyButtonPressed(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void SettingsView_SaveButtonPressed(object sender, EventArgs e)

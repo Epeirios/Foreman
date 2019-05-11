@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Foreman.Views.Controls
 {
-    public interface IFactorioModDirectoryControl
+    public interface ISettingsControl
     {
+
     }
 }

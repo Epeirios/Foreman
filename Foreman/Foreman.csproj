@@ -222,22 +222,21 @@
     <Compile Include="Controls\ItemChooserControl.Designer.cs">
       <DependentUpon>ItemChooserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\EventArgs\StringEventArgs.cs" />
-    <Compile Include="Views\Controls\EventArgs\RadioButtonEventArgs.cs" />
-    <Compile Include="Views\Controls\FactorioGameDicrectoryControl.cs">
+    <Compile Include="Views\Controls\DirectorySettingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\Controls\FactorioGameDicrectoryControl.Designer.cs">
-      <DependentUpon>FactorioGameDicrectoryControl.cs</DependentUpon>
+    <Compile Include="Views\Controls\DirectorySettingControl.Designer.cs">
+      <DependentUpon>DirectorySettingControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\FactorioModDirectoryControl.cs">
+    <Compile Include="Views\Controls\IDirectorySettingControl.cs" />
+    <Compile Include="Views\Controls\ILanguageSettingControl.cs" />
+    <Compile Include="Views\Controls\ISettingsControl.cs" />
+    <Compile Include="Views\Controls\LanguageSettingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\Controls\FactorioModDirectoryControl.Designer.cs">
-      <DependentUpon>FactorioModDirectoryControl.cs</DependentUpon>
+    <Compile Include="Views\Controls\LanguageSettingControl.Designer.cs">
+      <DependentUpon>LanguageSettingControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\IFactorioGameDirectoryControl.cs" />
-    <Compile Include="Views\Controls\IFactorioModDirectoryControl.cs" />
     <Compile Include="Views\ILoadingView.cs" />
     <Compile Include="Views\IMainForm.cs" />
     <Compile Include="Views\ISettingsView.cs" />
@@ -311,11 +310,11 @@
     <EmbeddedResource Include="Controls\RecipeChooserSupplyNodeOption.resx">
       <DependentUpon>ItemChooserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Controls\FactorioGameDicrectoryControl.resx">
-      <DependentUpon>FactorioGameDicrectoryControl.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Controls\DirectorySettingControl.resx">
+      <DependentUpon>DirectorySettingControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Controls\FactorioModDirectoryControl.resx">
-      <DependentUpon>FactorioModDirectoryControl.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Controls\LanguageSettingControl.resx">
+      <DependentUpon>LanguageSettingControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\LoadingView.resx">
       <DependentUpon>LoadingView.cs</DependentUpon>

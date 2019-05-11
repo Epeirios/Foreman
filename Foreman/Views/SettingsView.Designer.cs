@@ -29,12 +29,9 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.buttonSaveSettings = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.factorioModDirectoryControl2 = new Foreman.Views.Controls.FactorioModDirectoryControl();
-            this.factorioGameDicrectoryControl2 = new Foreman.Views.Controls.FactorioGameDicrectoryControl();
+            this.buttonSaveAndApply = new System.Windows.Forms.Button();
+            this.labelSettingsLabel = new System.Windows.Forms.Label();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,21 +42,18 @@
             this.tableLayoutPanel1.ColumnCount = 7;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Controls.Add(this.comboBoxLanguage, 1, 8);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.buttonSaveSettings, 5, 11);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.factorioModDirectoryControl2, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.factorioGameDicrectoryControl2, 1, 3);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.buttonSaveAndApply, 5, 10);
+            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 3, 10);
+            this.tableLayoutPanel1.Controls.Add(this.labelSettingsLabel, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 13;
+            this.tableLayoutPanel1.RowCount = 12;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
@@ -68,81 +62,54 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(742, 426);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
-            // comboBoxLanguage
+            // buttonSaveAndApply
             // 
-            this.comboBoxLanguage.FormattingEnabled = true;
-            this.comboBoxLanguage.Location = new System.Drawing.Point(40, 357);
-            this.comboBoxLanguage.Margin = new System.Windows.Forms.Padding(0);
-            this.comboBoxLanguage.MinimumSize = new System.Drawing.Size(150, 0);
-            this.comboBoxLanguage.Name = "comboBoxLanguage";
-            this.comboBoxLanguage.Size = new System.Drawing.Size(150, 21);
-            this.comboBoxLanguage.TabIndex = 2;
+            this.buttonSaveAndApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSaveAndApply.Location = new System.Drawing.Point(622, 383);
+            this.buttonSaveAndApply.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonSaveAndApply.MaximumSize = new System.Drawing.Size(100, 23);
+            this.buttonSaveAndApply.MinimumSize = new System.Drawing.Size(100, 23);
+            this.buttonSaveAndApply.Name = "buttonSaveAndApply";
+            this.buttonSaveAndApply.Size = new System.Drawing.Size(100, 23);
+            this.buttonSaveAndApply.TabIndex = 6;
+            this.buttonSaveAndApply.Text = "Save And Apply";
+            this.buttonSaveAndApply.UseVisualStyleBackColor = true;
+            this.buttonSaveAndApply.Click += new System.EventHandler(this.buttonSaveAndApply_Click);
             // 
-            // label2
+            // labelSettingsLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 337);
-            this.label2.Margin = new System.Windows.Forms.Padding(0);
-            this.label2.MaximumSize = new System.Drawing.Size(0, 20);
-            this.label2.MinimumSize = new System.Drawing.Size(250, 20);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(250, 20);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Language";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelSettingsLabel.AutoSize = true;
+            this.labelSettingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSettingsLabel.Location = new System.Drawing.Point(40, 20);
+            this.labelSettingsLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.labelSettingsLabel.MaximumSize = new System.Drawing.Size(0, 35);
+            this.labelSettingsLabel.MinimumSize = new System.Drawing.Size(250, 35);
+            this.labelSettingsLabel.Name = "labelSettingsLabel";
+            this.labelSettingsLabel.Size = new System.Drawing.Size(250, 35);
+            this.labelSettingsLabel.TabIndex = 7;
+            this.labelSettingsLabel.Text = "Settings";
+            this.labelSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // buttonSaveSettings
+            // buttonCancel
             // 
-            this.buttonSaveSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSaveSettings.Location = new System.Drawing.Point(627, 383);
-            this.buttonSaveSettings.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonSaveSettings.MaximumSize = new System.Drawing.Size(75, 23);
-            this.buttonSaveSettings.MinimumSize = new System.Drawing.Size(75, 23);
-            this.buttonSaveSettings.Name = "buttonSaveSettings";
-            this.buttonSaveSettings.Size = new System.Drawing.Size(75, 23);
-            this.buttonSaveSettings.TabIndex = 6;
-            this.buttonSaveSettings.Text = "Save";
-            this.buttonSaveSettings.UseVisualStyleBackColor = true;
-            this.buttonSaveSettings.Click += new System.EventHandler(this.buttonSaveSettings_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(40, 20);
-            this.label4.Margin = new System.Windows.Forms.Padding(0);
-            this.label4.MaximumSize = new System.Drawing.Size(0, 35);
-            this.label4.MinimumSize = new System.Drawing.Size(250, 35);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(250, 35);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Settings";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // factorioModDirectoryControl2
-            // 
-            this.factorioModDirectoryControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.factorioModDirectoryControl2.Location = new System.Drawing.Point(43, 204);
-            this.factorioModDirectoryControl2.Name = "factorioModDirectoryControl2";
-            this.factorioModDirectoryControl2.Size = new System.Drawing.Size(484, 120);
-            this.factorioModDirectoryControl2.TabIndex = 12;
-            // 
-            // factorioGameDicrectoryControl2
-            // 
-            this.factorioGameDicrectoryControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.factorioGameDicrectoryControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.factorioGameDicrectoryControl2.Location = new System.Drawing.Point(43, 68);
-            this.factorioGameDicrectoryControl2.Name = "factorioGameDicrectoryControl2";
-            this.factorioGameDicrectoryControl2.Size = new System.Drawing.Size(484, 120);
-            this.factorioGameDicrectoryControl2.TabIndex = 13;
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Location = new System.Drawing.Point(512, 383);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonCancel.MaximumSize = new System.Drawing.Size(100, 23);
+            this.buttonCancel.MinimumSize = new System.Drawing.Size(100, 23);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(100, 23);
+            this.buttonCancel.TabIndex = 8;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // SettingsView
             // 
@@ -160,11 +127,8 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBoxLanguage;
-        private System.Windows.Forms.Button buttonSaveSettings;
-        private System.Windows.Forms.Label label4;
-        private Controls.FactorioModDirectoryControl factorioModDirectoryControl2;
-        private Controls.FactorioGameDicrectoryControl factorioGameDicrectoryControl2;
+        private System.Windows.Forms.Button buttonSaveAndApply;
+        private System.Windows.Forms.Label labelSettingsLabel;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }

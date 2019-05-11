@@ -9,9 +9,12 @@ namespace Foreman.Views
 {
     public interface ISettingsView
     {
-        IFactorioGameDirectoryControl FactorioGameDirectoryControl { get; }
-        IFactorioModDirectoryControl FactorioModDirectoryControl { get; }
+        event EventHandler SaveAndApplyButtonPressed;
+        event EventHandler CancelButtonPressed;
 
-        event EventHandler SaveButtonPressed;
+        void SetSettingsControls(ISettingsControl[] settingsControls);
+        void SetCancelButtonText(string text);
+        void SetSaveAndApplyButtonText(string text);
+        void SetSettingsLabel(string text);
     }
 }
