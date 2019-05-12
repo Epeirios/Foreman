@@ -23,7 +23,7 @@ namespace Foreman
             var loadingView = new LoadingView();
             var settingsView = new SettingsView();
 
-            var gameDirectoriesFinder = new GameDirectoriesManager();
+            var gameDirectoriesFinder = new SettingsManager();
             var propertiesManager = new PropertiesManager();
 
             loadingView.Tag = new LoadingPresenter(loadingView);

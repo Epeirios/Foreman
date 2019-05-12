@@ -30,8 +30,8 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonSaveAndApply = new System.Windows.Forms.Button();
-            this.labelSettingsLabel = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.labelSettingsLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,20 +83,6 @@
             this.buttonSaveAndApply.UseVisualStyleBackColor = true;
             this.buttonSaveAndApply.Click += new System.EventHandler(this.buttonSaveAndApply_Click);
             // 
-            // labelSettingsLabel
-            // 
-            this.labelSettingsLabel.AutoSize = true;
-            this.labelSettingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSettingsLabel.Location = new System.Drawing.Point(40, 20);
-            this.labelSettingsLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.labelSettingsLabel.MaximumSize = new System.Drawing.Size(0, 35);
-            this.labelSettingsLabel.MinimumSize = new System.Drawing.Size(250, 35);
-            this.labelSettingsLabel.Name = "labelSettingsLabel";
-            this.labelSettingsLabel.Size = new System.Drawing.Size(250, 35);
-            this.labelSettingsLabel.TabIndex = 7;
-            this.labelSettingsLabel.Text = "Settings";
-            this.labelSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -110,6 +96,20 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // labelSettingsLabel
+            // 
+            this.labelSettingsLabel.AutoSize = true;
+            this.labelSettingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSettingsLabel.Location = new System.Drawing.Point(40, 20);
+            this.labelSettingsLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.labelSettingsLabel.MaximumSize = new System.Drawing.Size(0, 35);
+            this.labelSettingsLabel.MinimumSize = new System.Drawing.Size(250, 35);
+            this.labelSettingsLabel.Name = "labelSettingsLabel";
+            this.labelSettingsLabel.Size = new System.Drawing.Size(250, 35);
+            this.labelSettingsLabel.TabIndex = 7;
+            this.labelSettingsLabel.Text = "Settings";
+            this.labelSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // SettingsView
             // 

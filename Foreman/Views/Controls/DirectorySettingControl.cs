@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Foreman.Views.Controls
@@ -22,32 +15,48 @@ namespace Foreman.Views.Controls
 
         public string GetSelectedDirectory()
         {
-            throw new NotImplementedException();
+            return comboBoxSelectDirectory.Text;
         }
 
-        public void SetDirecties(string[] directories)
+        public void SetDirectories(string[] directories)
         {
-            throw new NotImplementedException();
+            comboBoxSelectDirectory.Items.Clear();
+            comboBoxSelectDirectory.Items.AddRange(directories);
         }
 
-        public void SetDirectotyLabel(string directory)
+        public void SetDirectotyLabel(string text)
         {
-            throw new NotImplementedException();
+            labelDirectory.Text = text;
         }
 
         public void SetInfoLabel(string text)
         {
-            throw new NotImplementedException();
+            labelInfo.Text = text;
         }
 
         public void SetInfoValue(string value)
         {
-            throw new NotImplementedException();
+            labelInfoValue.Text = value;
         }
 
         public void SetSelectedDirectory(string selectedDirectory)
         {
-            throw new NotImplementedException();
+            comboBoxSelectDirectory.Text = selectedDirectory;
+        }
+
+        public void SetVisibility(bool visible)
+        {
+            groupBox1.Visible = visible;
+        }
+
+        private void buttonSelectDirectory_Click(object sender, EventArgs e)
+        {
+            DirectoryButtonPressed(this, new EventArgs());
+        }
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            DirectoryChanged(this, new EventArgs());
         }
     }
 }

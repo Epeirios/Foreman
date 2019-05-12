@@ -33,7 +33,7 @@
             this.labelDirectory = new System.Windows.Forms.Label();
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelInfoValue = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxSelectDirectory = new System.Windows.Forms.ComboBox();
             this.buttonSelectDirectory = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -61,7 +61,7 @@
             this.tableLayoutPanel1.Controls.Add(this.labelDirectory, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelInfo, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelInfoValue, 4, 2);
-            this.tableLayoutPanel1.Controls.Add(this.comboBox1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.comboBoxSelectDirectory, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.buttonSelectDirectory, 2, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
@@ -108,15 +108,16 @@
             this.labelInfoValue.TabIndex = 2;
             this.labelInfoValue.Text = "InfoValue";
             // 
-            // comboBox1
+            // comboBoxSelectDirectory
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 26);
-            this.comboBox1.MaximumSize = new System.Drawing.Size(300, 0);
-            this.comboBox1.MinimumSize = new System.Drawing.Size(300, 0);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(300, 21);
-            this.comboBox1.TabIndex = 4;
+            this.comboBoxSelectDirectory.FormattingEnabled = true;
+            this.comboBoxSelectDirectory.Location = new System.Drawing.Point(3, 26);
+            this.comboBoxSelectDirectory.MaximumSize = new System.Drawing.Size(300, 0);
+            this.comboBoxSelectDirectory.MinimumSize = new System.Drawing.Size(300, 0);
+            this.comboBoxSelectDirectory.Name = "comboBoxSelectDirectory";
+            this.comboBoxSelectDirectory.Size = new System.Drawing.Size(300, 21);
+            this.comboBoxSelectDirectory.TabIndex = 4;
+            this.comboBoxSelectDirectory.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
             // 
             // buttonSelectDirectory
             // 
@@ -128,6 +129,7 @@
             this.buttonSelectDirectory.TabIndex = 9;
             this.buttonSelectDirectory.Text = "...";
             this.buttonSelectDirectory.UseVisualStyleBackColor = true;
+            this.buttonSelectDirectory.Click += new System.EventHandler(this.buttonSelectDirectory_Click);
             // 
             // DirectorySettingControl
             // 
@@ -150,7 +152,7 @@
         private System.Windows.Forms.Label labelDirectory;
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.Label labelInfoValue;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxSelectDirectory;
         private System.Windows.Forms.Button buttonSelectDirectory;
     }
 }

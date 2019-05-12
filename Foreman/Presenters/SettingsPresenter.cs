@@ -12,31 +12,59 @@ namespace Foreman.Presenters
     public class SettingsPresenter
     {
         private ISettingsView settingsView;
-        private IGameDirectoriesManager gameDirectoriesManager;
+        private ISettingsManager settingsManager;
 
-        private string currentGameDirectory;
+        private IDirectorySettingControl gameDirectorySettingControl;
+        private IDirectorySettingControl modDirectorySettingControl;
+        private ILanguageSettingControl languageSettingControl;
+
+        private FoundInstallation currentGameDirectory;
         private string currentModDirectory;
         private string currentLanguage;
 
-        public SettingsPresenter(ISettingsView settingsView, IGameDirectoriesManager gameDirectoriesManager)
+        private FoundInstallation[] gameDirectories;
+        private string[] modDirectories;
+        private string[] languages;
+
+        public SettingsPresenter(ISettingsView settingsView, ISettingsManager settingsManager)
         {
             this.settingsView = settingsView;
-            this.gameDirectoriesManager = gameDirectoriesManager;
+            this.settingsManager = settingsManager;
 
-            currentGameDirectory = gameDirectoriesManager.GetCurrentGameDirectory();
-            currentModDirectory = gameDirectoriesManager.GetCurrentModDirectory();
-            currentLanguage = Properties.Settings.Default.Language;
+            gameDirectorySettingControl = new DirectorySettingControl();
+            modDirectorySettingControl = new DirectorySettingControl();
+            languageSettingControl = new LanguageSettingControl();
 
-            IDirectorySettingControl gameDirectorySettingControl = new DirectorySettingControl();
+            PreInitalize();
+
+            if (true)
+            {
+
+            }
+
+            EventAggregator.Instance.Subscribe<MainFormLoadedMessage>(m => SetupDirs());
+        }
+
+        private void PreInitalize()
+        {
+            currentGameDirectory = settingsManager.GetCurrentGameDirectory();
+            currentModDirectory = settingsManager.GetCurrentModDirectory();
+            currentLanguage = settingsManager.GetCurrentLanguage();
+
+            gameDirectories = settingsManager.GetSavedGameDirectories();
+            modDirectories = settingsManager.GetSavedModDirectories();
+            
+            gameDirectorySettingControl.DirectoryButtonPressed += GameDirectorySettingControl_DirectoryButtonPressed;
+            gameDirectorySettingControl.DirectoryChanged += GameDirectorySettingControl_DirectoryChanged;
             gameDirectorySettingControl.SetDirectotyLabel("Game directory");
             gameDirectorySettingControl.SetInfoLabel("Game version");
-            //gameDirectorySettingControl.SetDirecties();
-
-            IDirectorySettingControl modDirectorySettingControl = new DirectorySettingControl();
+            
+            modDirectorySettingControl.DirectoryButtonPressed += ModDirectorySettingControl_DirectoryButtonPressed;
+            modDirectorySettingControl.DirectoryChanged += ModDirectorySettingControl_DirectoryChanged;
             modDirectorySettingControl.SetDirectotyLabel("Mod directory");
             modDirectorySettingControl.SetInfoLabel("Mods in modlist");
-
-            ILanguageSettingControl languageSettingControl = new LanguageSettingControl();
+            
+            languageSettingControl.SetLabel("Language");
 
             ISettingsControl[] settingsControls =
             {
@@ -47,17 +75,39 @@ namespace Foreman.Presenters
 
             settingsView.SaveAndApplyButtonPressed += SettingsView_SaveAndApplyButtonPressed;
             settingsView.CancelButtonPressed += SettingsView_CancelButtonPressed;
+            settingsView.SetSettingsControls(settingsControls);
             settingsView.SetCancelButtonText("Cancel");
             settingsView.SetSaveAndApplyButtonText("Save and Apply");
+        }
+
+        private void InitializeSetup()
+        {
+            settingsView.SetSettingsLabel("Setup");
+        }
+
+        private void InitializeSettings()
+        {
             settingsView.SetSettingsLabel("Settings");
-            settingsView.SetSettingsControls(settingsControls);
+        }
 
-            settingsView.FactorioGameDirectoryControl.RadioButtonChanged += FactorioGameDirectoryControl_RadioButtonChanged;
-            settingsView.FactorioGameDirectoryControl.ManualDirectoryNavigateButtonPressed += FactorioGameDirectoryControl_ManualDirectoryNavigateButtonPressed;
-            settingsView.FactorioGameDirectoryControl.ManualDirectoryChanged += FactorioGameDirectoryControl_ManualDirectoryChanged;
-            settingsView.FactorioGameDirectoryControl.SelectedFoundDirectoryChanged += FactorioGameDirectoryControl_SelectedFoundDirectoryChanged;
+        private void ModDirectorySettingControl_DirectoryChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
-            EventAggregator.Instance.Subscribe<MainFormLoadedMessage>(m => SetupDirs());
+        private void ModDirectorySettingControl_DirectoryButtonPressed(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void GameDirectorySettingControl_DirectoryChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void GameDirectorySettingControl_DirectoryButtonPressed(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void SettingsView_CancelButtonPressed(object sender, EventArgs e)
@@ -136,8 +186,8 @@ namespace Foreman.Presenters
 
         private void SetupDirs()
         {
-            FoundInstallation[] gameDirectories = gameDirectoriesManager.GameDirectories;
-            string[] modDirectories = gameDirectoriesManager.ModDirectories;
+            FoundInstallation[] gameDirectories = settingsManager.GameDirectories;
+            string[] modDirectories = settingsManager.ModDirectories;
 
             if (currentGameDirectory != null && currentModDirectory != null)
             {

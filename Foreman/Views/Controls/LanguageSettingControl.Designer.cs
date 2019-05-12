@@ -85,6 +85,7 @@
             this.comboBoxLanguage.Name = "comboBoxLanguage";
             this.comboBoxLanguage.Size = new System.Drawing.Size(200, 21);
             this.comboBoxLanguage.TabIndex = 1;
+            this.comboBoxLanguage.TextChanged += new System.EventHandler(this.comboBoxLanguage_TextChanged);
             // 
             // LanguageSettingControl
             // 

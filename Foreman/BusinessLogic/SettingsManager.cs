@@ -4,9 +4,9 @@ using System.IO;
 
 namespace Foreman.BusinessLogic
 {
-    public class GameDirectoriesManager : IGameDirectoriesManager
+    public class SettingsManager : ISettingsManager
     {
-        public GameDirectoriesManager()
+        public SettingsManager()
         {
             SearchModDirectories();
             SearchGameDirectories();

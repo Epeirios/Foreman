@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Foreman.Views.Controls;
 
@@ -23,32 +16,37 @@ namespace Foreman.Views
 
         public void SetCancelButtonText(string text)
         {
-            throw new NotImplementedException();
+            buttonCancel.Text = text;
         }
 
         public void SetSaveAndApplyButtonText(string text)
         {
-            throw new NotImplementedException();
+            buttonSaveAndApply.Text = text;
         }
 
         public void SetSettingsControls(ISettingsControl[] settingsControls)
         {
-            throw new NotImplementedException();
+            tableLayoutPanel1.Controls.Clear();
+
+            for (int i = 0; i < settingsControls.Length; i++)
+            {
+                tableLayoutPanel1.Controls.Add((Control)settingsControls[i], 3 + (i * 2), 1);
+            }
         }
 
         public void SetSettingsLabel(string text)
         {
-            throw new NotImplementedException();
+            labelSettingsLabel.Text = text;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-
+            CancelButtonPressed(this, new EventArgs());
         }
 
         private void buttonSaveAndApply_Click(object sender, EventArgs e)
         {
-
+            SaveAndApplyButtonPressed(this, new EventArgs());
         }
     }
 }

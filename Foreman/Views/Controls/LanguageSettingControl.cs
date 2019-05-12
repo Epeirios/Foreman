@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Foreman.Views.Controls
@@ -21,22 +14,33 @@ namespace Foreman.Views.Controls
 
         public string GetSelectedLanguage()
         {
-            throw new NotImplementedException();
+            return comboBoxLanguage.Text;
         }
 
         public void SetLabel(string text)
         {
-            throw new NotImplementedException();
+            labelLanguage.Text = text;
         }
 
         public void SetLanguages(string[] languages)
         {
-            throw new NotImplementedException();
+            comboBoxLanguage.Items.Clear();
+            comboBoxLanguage.Items.AddRange(languages);
         }
 
         public void SetSelectedLanguage(string selectedLanguage)
         {
-            throw new NotImplementedException();
+            comboBoxLanguage.Text = selectedLanguage;
+        }
+
+        public void SetVisibility(bool visible)
+        {
+            groupBox1.Visible = visible;
+        }
+
+        private void comboBoxLanguage_TextChanged(object sender, EventArgs e)
+        {
+            SelectedLanguageChanged(this, new EventArgs());
         }
     }
 }

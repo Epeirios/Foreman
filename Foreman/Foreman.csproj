@@ -114,8 +114,8 @@
   <ItemGroup>
     <Compile Include="Assembler.cs" />
     <Compile Include="AssemblerBox.cs" />
-    <Compile Include="BusinessLogic\GameDirectoriesManager.cs" />
-    <Compile Include="BusinessLogic\IGameDirectoriesManager.cs" />
+    <Compile Include="BusinessLogic\SettingsManager.cs" />
+    <Compile Include="BusinessLogic\ISettingsManager.cs" />
     <Compile Include="BusinessLogic\IPropertiesManager.cs" />
     <Compile Include="BusinessLogic\PropertiesManager.cs" />
     <Compile Include="CancellableProgress.cs" />

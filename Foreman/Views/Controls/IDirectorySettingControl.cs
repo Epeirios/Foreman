@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Foreman.Views.Controls
 {
@@ -13,9 +9,9 @@ namespace Foreman.Views.Controls
 
         void SetInfoLabel(string text);
         void SetInfoValue(string value);
-        void SetDirectotyLabel(string directory);
+        void SetDirectotyLabel(string text);
         string GetSelectedDirectory();
         void SetSelectedDirectory(string selectedDirectory);
-        void SetDirecties(string[] directories);
+        void SetDirectories(string[] directories);
     }
 }
