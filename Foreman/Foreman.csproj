@@ -159,6 +159,7 @@
     <Compile Include="GhostNodeElement.cs" />
     <Compile Include="DraggedLinkElement.cs" />
     <Compile Include="ErrorLogging.cs" />
+    <Compile Include="Models\Language.cs" />
     <Compile Include="Models\ModuleSelector.cs" />
     <Compile Include="Models\FoundInstallation.cs" />
     <Compile Include="Models\Solver\GoogleSolver.cs" />

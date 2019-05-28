@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Threading;
+using Foreman.Models;
 
 namespace Foreman
 {
@@ -27,13 +28,13 @@ namespace Foreman
 		private void Form1_Load(object sender, EventArgs e)
         {
             //I changed the name of the variable, so this copies the value over for people who are upgrading their Foreman version
-            if (Properties.Settings.Default.FactorioPath == "" && Properties.Settings.Default.FactorioDataPath != "")
+            if (Properties.Settings.Default.AllGameInstallationDirectories == "" && Properties.Settings.Default.GameInstallationDirectory != "")
             {
-                Properties.Settings.Default["FactorioPath"] = Path.GetDirectoryName(Properties.Settings.Default.FactorioDataPath);
+                Properties.Settings.Default["FactorioPath"] = Path.GetDirectoryName(Properties.Settings.Default.GameInstallationDirectory);
                 Properties.Settings.Default["FactorioDataPath"] = "";
             }
 
-            if (!Directory.Exists(Properties.Settings.Default.FactorioPath))
+            if (!Directory.Exists(Properties.Settings.Default.AllGameInstallationDirectories))
             {
                 List<FoundInstallation> installations = new List<FoundInstallation>();
                 String steamFolder = Path.Combine("Steam", "steamapps", "common");
@@ -79,7 +80,7 @@ namespace Foreman
                 }
             }
 
-            if (!Directory.Exists(Properties.Settings.Default.FactorioPath))
+            if (!Directory.Exists(Properties.Settings.Default.AllGameInstallationDirectories))
             {
                 using (DirectoryChooserForm form = new DirectoryChooserForm(""))
                 {
@@ -97,11 +98,11 @@ namespace Foreman
                 }
             }
 
-            if (!Directory.Exists(Properties.Settings.Default.FactorioModPath))
+            if (!Directory.Exists(Properties.Settings.Default.GameModDirectory))
             {
-                if (Directory.Exists(Path.Combine(Properties.Settings.Default.FactorioPath, "mods")))
+                if (Directory.Exists(Path.Combine(Properties.Settings.Default.AllGameInstallationDirectories, "mods")))
                 {
-                    Properties.Settings.Default["FactorioModPath"] = Path.Combine(Properties.Settings.Default.FactorioPath, "mods");
+                    Properties.Settings.Default["FactorioModPath"] = Path.Combine(Properties.Settings.Default.AllGameInstallationDirectories, "mods");
                 }
                 else if (Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "factorio", "mods")))
                 {
@@ -394,7 +395,7 @@ namespace Foreman
 
 		private void FactorioDirectoryButton_Click(object sender, EventArgs e)
 		{
-			using (DirectoryChooserForm form = new DirectoryChooserForm(Properties.Settings.Default.FactorioPath))
+			using (DirectoryChooserForm form = new DirectoryChooserForm(Properties.Settings.Default.AllGameInstallationDirectories))
 			{
 				form.Text = "Locate the factorio directory";
 				if (form.ShowDialog() == DialogResult.OK)
@@ -412,7 +413,7 @@ namespace Foreman
 
 		private void ModDirectoryButton_Click(object sender, EventArgs e)
 		{
-			using (DirectoryChooserForm form = new DirectoryChooserForm(Properties.Settings.Default.FactorioModPath))
+			using (DirectoryChooserForm form = new DirectoryChooserForm(Properties.Settings.Default.GameModDirectory))
 			{
 				form.Text = "Locate the mods directory";
 				if (form.ShowDialog() == DialogResult.OK)
@@ -566,7 +567,7 @@ namespace Foreman
 
 		private void LanguageDropDown_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			String newLocale = (LanguageDropDown.SelectedItem as Language).Name;
+			String newLocale = (LanguageDropDown.SelectedItem as Language_old).Name;
 
 			DataCache.LocaleFiles.Clear();
 			DataCache.LoadLocaleFiles(newLocale);

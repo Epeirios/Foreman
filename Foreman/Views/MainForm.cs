@@ -12,10 +12,10 @@ namespace Foreman.Views
 {
     public partial class MainForm : Form, IMainForm
     {
-        private readonly Control loadingView;
-        private readonly Control settingsView;
+        private readonly ILoadingView loadingView;
+        private readonly ISettingsView settingsView;
 
-        public MainForm(Control loadingView, Control settingsView)
+        public MainForm(ILoadingView loadingView, ISettingsView settingsView)
         {
             InitializeComponent();
 
@@ -31,12 +31,12 @@ namespace Foreman.Views
 
         public void ShowLoadingView()
         {
-            SetMainFormView(loadingView);
+            SetMainFormView((Control)loadingView);
         }
 
         public void ShowSettingsView()
         {
-            SetMainFormView(settingsView);
+            SetMainFormView((Control)settingsView);
         }
 
         private void SetMainFormView(Control view)

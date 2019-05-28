@@ -2,6 +2,7 @@
 using Foreman.Events;
 using Foreman.Views;
 using Foreman.Views.Controls;
+using Foreman.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,11 +21,11 @@ namespace Foreman.Presenters
 
         private FoundInstallation currentGameDirectory;
         private string currentModDirectory;
-        private string currentLanguage;
+        private Language currentLanguage;
 
         private FoundInstallation[] gameDirectories;
         private string[] modDirectories;
-        private string[] languages;
+        private Language[] languages;
 
         public SettingsPresenter(ISettingsView settingsView, ISettingsManager settingsManager)
         {
@@ -35,35 +36,23 @@ namespace Foreman.Presenters
             modDirectorySettingControl = new DirectorySettingControl();
             languageSettingControl = new LanguageSettingControl();
 
-            PreInitalize();
-
-            if (true)
-            {
-
-            }
-
-            EventAggregator.Instance.Subscribe<MainFormLoadedMessage>(m => SetupDirs());
-        }
-
-        private void PreInitalize()
-        {
             currentGameDirectory = settingsManager.GetCurrentGameDirectory();
-            currentModDirectory = settingsManager.GetCurrentModDirectory();
-            currentLanguage = settingsManager.GetCurrentLanguage();
+            //currentModDirectory = settingsManager.GetCurrentModDirectory();
+            //currentLanguage = settingsManager.GetCurrentLanguage();
 
             gameDirectories = settingsManager.GetSavedGameDirectories();
-            modDirectories = settingsManager.GetSavedModDirectories();
-            
+            //modDirectories = settingsManager.GetSavedModDirectories();
+
             gameDirectorySettingControl.DirectoryButtonPressed += GameDirectorySettingControl_DirectoryButtonPressed;
             gameDirectorySettingControl.DirectoryChanged += GameDirectorySettingControl_DirectoryChanged;
             gameDirectorySettingControl.SetDirectotyLabel("Game directory");
             gameDirectorySettingControl.SetInfoLabel("Game version");
-            
+
             modDirectorySettingControl.DirectoryButtonPressed += ModDirectorySettingControl_DirectoryButtonPressed;
             modDirectorySettingControl.DirectoryChanged += ModDirectorySettingControl_DirectoryChanged;
             modDirectorySettingControl.SetDirectotyLabel("Mod directory");
             modDirectorySettingControl.SetInfoLabel("Mods in modlist");
-            
+
             languageSettingControl.SetLabel("Language");
 
             ISettingsControl[] settingsControls =
@@ -78,14 +67,16 @@ namespace Foreman.Presenters
             settingsView.SetSettingsControls(settingsControls);
             settingsView.SetCancelButtonText("Cancel");
             settingsView.SetSaveAndApplyButtonText("Save and Apply");
+
+            EventAggregator.Instance.Subscribe<MainFormLoadedMessage>(m => SetupDirs());
         }
 
-        private void InitializeSetup()
+        private void InitializeSetupView()
         {
             settingsView.SetSettingsLabel("Setup");
         }
 
-        private void InitializeSettings()
+        private void InitializeSettingsView()
         {
             settingsView.SetSettingsLabel("Settings");
         }
@@ -124,12 +115,12 @@ namespace Foreman.Presenters
         {
             if (currentGameDirectory != null)
             {
-                Properties.Settings.Default.FactorioPath = currentGameDirectory;
+                Properties.Settings.Default.AllGameInstallationDirectories = currentGameDirectory;
             }
 
             if (currentModDirectory != null)
             {
-                Properties.Settings.Default.FactorioPath = currentModDirectory;
+                Properties.Settings.Default.AllGameInstallationDirectories = currentModDirectory;
             }
         }
 

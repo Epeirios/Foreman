@@ -12,7 +12,7 @@ namespace Foreman.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,24 +26,24 @@ namespace Foreman.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FactorioDataPath {
+        public string GameInstallationDirectory {
             get {
-                return ((string)(this["FactorioDataPath"]));
+                return ((string)(this["GameInstallationDirectory"]));
             }
             set {
-                this["FactorioDataPath"] = value;
+                this["GameInstallationDirectory"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FactorioModPath {
+        public string GameModDirectory {
             get {
-                return ((string)(this["FactorioModPath"]));
+                return ((string)(this["GameModDirectory"]));
             }
             set {
-                this["FactorioModPath"] = value;
+                this["GameModDirectory"] = value;
             }
         }
         
@@ -61,13 +61,12 @@ namespace Foreman.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FactorioPath {
+        public global::System.Collections.Specialized.StringCollection AllGameInstallationDirectories {
             get {
-                return ((string)(this["FactorioPath"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["AllGameInstallationDirectories"]));
             }
             set {
-                this["FactorioPath"] = value;
+                this["AllGameInstallationDirectories"] = value;
             }
         }
         
@@ -124,6 +123,17 @@ namespace Foreman.Properties {
             }
             set {
                 this["FactorioDifficulty"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection AllGameModDirectories {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["AllGameModDirectories"]));
+            }
+            set {
+                this["AllGameModDirectories"] = value;
             }
         }
     }

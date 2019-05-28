@@ -17,9 +17,9 @@ namespace Foreman.BusinessLogic
 
         private void CompatabilityFixes()
         {
-            if (Properties.Settings.Default.FactorioPath == "" && Properties.Settings.Default.FactorioDataPath != "")
+            if (Properties.Settings.Default.AllGameInstallationDirectories == "" && Properties.Settings.Default.GameInstallationDirectory != "")
             {
-                Properties.Settings.Default["FactorioPath"] = Path.GetDirectoryName(Properties.Settings.Default.FactorioDataPath);
+                Properties.Settings.Default["FactorioPath"] = Path.GetDirectoryName(Properties.Settings.Default.GameInstallationDirectory);
                 Properties.Settings.Default["FactorioDataPath"] = "";
                 //Properties.Settings.Default.Properties.Remove("FactorioDataPath");
             }

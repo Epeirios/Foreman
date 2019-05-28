@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Foreman.Models;
+using Newtonsoft.Json;
 
 namespace Foreman.BusinessLogic
 {
@@ -8,122 +10,186 @@ namespace Foreman.BusinessLogic
     {
         public SettingsManager()
         {
-            SearchModDirectories();
             SearchGameDirectories();
+            SearchModDirectories();
         }
 
-        public FoundInstallation[] GameDirectories { get; private set; } = { };
-        public string[] ModDirectories { get; private set; } = { };
-
-        public bool CurrentGameDirFound()
+        Language ISettingsManager.CurrentLanguage
         {
-            string dir = GetCurrentGameDirectory();
-
-            foreach (var item in GameDirectories)
+            get
             {
-                if (item.DirPath == dir)
-                {
-                    return true;
-                }
-            }
+                string savedValue = Properties.Settings.Default.Language;
+                Language language;
 
-            return false;
+                if (string.IsNullOrWhiteSpace(savedValue))
+                {
+                    Properties.Settings.Default.Language = "en";
+                    language = new Language("en", "English");
+                }
+                else
+                {
+                    language = new Language(savedValue, savedValue);
+                }
+
+                return language;
+            }
+            set => throw new NotImplementedException();
         }
 
-        public bool CurrentModDirFound()
+        public FoundInstallation CurrentGameInstallation
         {
-            string dir = GetCurrentModDirectory();
-
-            foreach (var item in GameDirectories)
+            get
             {
-                if (item.DirPath == dir)
-                {
-                    return true;
-                }
+                string dir = Properties.Settings.Default.GameInstallationDirectory;
+
+                FoundInstallation installation = GetGameInstalationFromDir(dir);
+
+                return installation;
             }
-
-            return false;
-        }
-
-        public string GetCurrentGameDirectory()
-        {
-            string savedDir = Properties.Settings.Default.FactorioPath;
-
-            if (savedDir != null)
+            set
             {
-                if (Directory.Exists(savedDir))
-                {
-                    FoundInstallation inst = FoundInstallation.GetInstallationFromPath(savedDir);
-
-                    if (inst.Version != new Version(0, 0, 0))
-                    {
-                        return savedDir;
-                    }
-                }
+                Properties.Settings.Default.GameInstallationDirectory = value.DirPath;
+                Properties.Settings.Default.Save();
             }
-
-            Properties.Settings.Default.FactorioPath = null;
-            Properties.Settings.Default.Save();
-            return null;
         }
 
-        public string GetCurrentModDirectory()
+        public string CurrentGameDirectory
         {
-            string savedDir = Properties.Settings.Default.FactorioModPath;
-
-            if (savedDir != null)
+            get
             {
-                if (Directory.Exists(savedDir))
-                {
-                    return savedDir;                   
-                }
+                return Properties.Settings.Default.GameInstallationDirectory;
             }
-
-            Properties.Settings.Default.FactorioModPath = null;
-            Properties.Settings.Default.Save();
-            return null;
+            set
+            {
+                Properties.Settings.Default.GameInstallationDirectory = value;
+                Properties.Settings.Default.Save();
+            }
         }
 
-        private void SearchGameDirectories()
+        public string CurrentModDirectory
         {
-            List<FoundInstallation> dirs = new List<FoundInstallation>();
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public string[] GetFoundInstallationDirectories()
+        {
+            throw new NotImplementedException();
+        }
+
+        public FoundInstallation[] GetFoundInstallations()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string[] GetFoundModDirectories()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Language[] GetLanguages()
+        {
+            throw new NotImplementedException();
+        }
+
+        private FoundInstallation[] SearchGameDirectories()
+        {
+            System.Collections.Specialized.StringCollection possibleDirs = new System.Collections.Specialized.StringCollection();
+            List<FoundInstallation> installations = new List<FoundInstallation>();
 
             String steamFolder = Path.Combine("Steam", "steamapps", "common");
-            foreach (String defaultPath in new String[]{
-                  Path.Combine(Environment.GetEnvironmentVariable("PROGRAMFILES(X86)"), steamFolder, "Factorio"),
-                  Path.Combine(Environment.GetEnvironmentVariable("ProgramW6432"), steamFolder, "Factorio"),
-                  Path.Combine(Environment.GetEnvironmentVariable("PROGRAMFILES(X86)"), "Factorio"),
-                  Path.Combine(Environment.GetEnvironmentVariable("ProgramW6432"), "Factorio"),
-                  Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Applications", "factorio.app", "Contents")})
+
+            possibleDirs.AddRange(new string[]
             {
-                if (Directory.Exists(defaultPath))
+                Path.Combine(Environment.GetEnvironmentVariable("PROGRAMFILES(X86)"), steamFolder, "Factorio"),
+                Path.Combine(Environment.GetEnvironmentVariable("ProgramW6432"), steamFolder, "Factorio"),
+                Path.Combine(Environment.GetEnvironmentVariable("PROGRAMFILES(X86)"), "Factorio"),
+                Path.Combine(Environment.GetEnvironmentVariable("ProgramW6432"), "Factorio"),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Applications", "factorio.app", "Contents")
+            });
+            
+            System.Collections.Specialized.StringCollection savedDirs = Properties.Settings.Default.AllGameInstallationDirectories;
+            
+            foreach (var dir in savedDirs)
+            {
+                if (!possibleDirs.Contains(dir))
                 {
-                    FoundInstallation inst = FoundInstallation.GetInstallationFromPath(defaultPath);
-                    if (inst != null)
-                        dirs.Add(inst);
+                    possibleDirs.Add(dir);
+                }                
+            }
+
+            foreach (var dir in possibleDirs)
+            {
+                if (Directory.Exists(dir))
+                {
+                    FoundInstallation instal = GetGameInstalationFromDir(dir);
+
+                    if (instal != null)
+                    {
+                        installations.Add(instal);
+                    }                    
                 }
             }
 
-            GameDirectories = dirs.ToArray();
+            return installations.ToArray();
         }
 
-        private void SearchModDirectories()
+        private FoundInstallation GetGameInstalationFromDir(string dir)
         {
-            List<string> dirs = new List<string>();
-
-            if (!Directory.Exists(Properties.Settings.Default.FactorioModPath))
+            if (Directory.Exists(dir))
             {
-                if (Directory.Exists(Path.Combine(Properties.Settings.Default.FactorioPath, "mods")))
+                String json = "";
+                String infoFile = Path.Combine(dir, "data", "base", "info.json");
+                try
                 {
-                    dirs.Add(Path.Combine(Properties.Settings.Default.FactorioPath, "mods"));
+                    if (!File.Exists(infoFile))
+                    {
+                        return null;
+                    }
+                    json = File.ReadAllText(infoFile);
                 }
-                else if (Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "factorio", "mods")))
+                catch (Exception)
                 {
-                    dirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "factorio", "mods"));
+                    ErrorLogging.LogLine(String.Format("The Installation at '{0}' has an invalid info.json file", infoFile));
                 }
+
+                if (json == "")
+                    return null;
+
+                Mod newMod = JsonConvert.DeserializeObject<Mod>(json);
+
+                if (!Version.TryParse(newMod.version, out newMod.parsedVersion))
+                {
+                    newMod.parsedVersion = new Version(0, 0, 0);
+                }
+
+                return new FoundInstallation(dir, newMod.parsedVersion);
+            }
+            return null;
+        }
+
+        private string[] SearchModDirectories()
+        {
+            List<string> possibleDirs = new List<string>();
+            
+            String steamFolder = Path.Combine("Steam", "steamapps", "common");
+
+            possibleDirs.AddRange(new string[]{
+                Path.Combine(Properties.Settings.Default.GameModDirectory, "mods"),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "factorio", "mods")         
+            });
+
+            System.Collections.Specialized.StringCollection savedDirs = Properties.Settings.Default.AllGameModDirectories;
+
+            foreach (var dir in savedDirs)
+            {
+                if (!possibleDirs.Contains(dir))
+                {
+                    possibleDirs.Add(dir);
+                }                
             }
 
-            ModDirectories = dirs.ToArray();
+            return possibleDirs.ToArray();
         }
     }
 }

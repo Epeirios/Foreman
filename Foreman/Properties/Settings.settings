@@ -2,16 +2,16 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Foreman.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="FactorioDataPath" Type="System.String" Scope="User">
+    <Setting Name="GameInstallationDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="FactorioModPath" Type="System.String" Scope="User">
+    <Setting Name="GameModDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Language" Type="System.String" Scope="User">
       <Value Profile="(Default)">en</Value>
     </Setting>
-    <Setting Name="FactorioPath" Type="System.String" Scope="User">
+    <Setting Name="AllGameInstallationDirectories" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="EnabledMods" Type="System.Collections.Specialized.StringCollection" Scope="User">
@@ -28,6 +28,9 @@
     </Setting>
     <Setting Name="FactorioDifficulty" Type="System.String" Scope="User">
       <Value Profile="(Default)">normal</Value>
+    </Setting>
+    <Setting Name="AllGameModDirectories" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

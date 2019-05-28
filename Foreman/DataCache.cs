@@ -17,7 +17,7 @@ using System.Threading;
 
 namespace Foreman
 {
-    class Language
+    class Language_old
     {
         public String Name;
         private String localName;
@@ -56,11 +56,11 @@ namespace Foreman
             }
         }
 
-        private static String DataPath { get { return Path.Combine(Properties.Settings.Default.FactorioPath, "data"); } }
-        private static String ModPath { get { return Properties.Settings.Default.FactorioModPath; } }
+        private static String DataPath { get { return Path.Combine(Properties.Settings.Default.AllGameInstallationDirectories, "data"); } }
+        private static String ModPath { get { return Properties.Settings.Default.GameModDirectory; } }
 
         public static List<Mod> Mods = new List<Mod>();
-        public static List<Language> Languages = new List<Language>();
+        public static List<Language_old> Languages = new List<Language_old>();
 
         public static string Difficulty = "normal";
 
@@ -280,7 +280,7 @@ namespace Foreman
             sb.AppendLine("settings = {}");
             sb.AppendLine("settings.startup = {}");
 
-            var settingsFile = Path.Combine(Properties.Settings.Default.FactorioModPath, "mod-settings.dat");
+            var settingsFile = Path.Combine(Properties.Settings.Default.GameModDirectory, "mod-settings.dat");
 
             if (!File.Exists(settingsFile))
             {
@@ -347,7 +347,7 @@ namespace Foreman
 
             foreach (String dir in dirList)
             {
-                Language newLanguage = new Language();
+                Language_old newLanguage = new Language_old();
                 newLanguage.Name = Path.GetFileName(dir);
                 try
                 {
@@ -558,7 +558,7 @@ namespace Foreman
 
 		private static void FindAllMods(List<String> enabledMods, CancellableProgress progress) //Vanilla game counts as a mod too.
 		{
-            String modPath = Properties.Settings.Default.FactorioModPath;
+            String modPath = Properties.Settings.Default.GameModDirectory;
             IEnumerable<ModOnDisk> mods = ModOnDisk.Empty();
 
             mods = mods.Concat(ModOnDisk.EnumerateDirectories(DataPath));
@@ -584,7 +584,7 @@ namespace Foreman
 
             Dictionary<String, bool> enabledModsFromFile = new Dictionary<string, bool>();
 
-            string modListFile = Path.Combine(Properties.Settings.Default.FactorioModPath, "mod-list.json");
+            string modListFile = Path.Combine(Properties.Settings.Default.GameModDirectory, "mod-list.json");
             if (File.Exists(modListFile))
             {
                 String json = File.ReadAllText(modListFile);
