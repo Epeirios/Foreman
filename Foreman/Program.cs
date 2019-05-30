@@ -33,8 +33,6 @@ namespace Foreman
 
             mainForm.Tag = new MainFormPresenter(mainForm);
 
-            propertiesManager.SetupProperties();
-
             Application.Run(mainForm);
 		}
 	}

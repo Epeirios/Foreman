@@ -28,15 +28,15 @@ namespace Foreman
 		private void Form1_Load(object sender, EventArgs e)
         {
             //I changed the name of the variable, so this copies the value over for people who are upgrading their Foreman version
-            if (Properties.Settings.Default.AllGameInstallationDirectories == "" && Properties.Settings.Default.GameInstallationDirectory != "")
+            if (Properties.Settings.Default.GameInstallationDirectory == "" && Properties.Settings.Default.GameInstallationDirectory != "")
             {
                 Properties.Settings.Default["FactorioPath"] = Path.GetDirectoryName(Properties.Settings.Default.GameInstallationDirectory);
                 Properties.Settings.Default["FactorioDataPath"] = "";
             }
 
-            if (!Directory.Exists(Properties.Settings.Default.AllGameInstallationDirectories))
+            if (!Directory.Exists(Properties.Settings.Default.GameInstallationDirectory))
             {
-                List<FoundInstallation> installations = new List<FoundInstallation>();
+                List<GameInstallation> installations = new List<GameInstallation>();
                 String steamFolder = Path.Combine("Steam", "steamapps", "common");
                 foreach (String defaultPath in new String[]{
                   Path.Combine(Environment.GetEnvironmentVariable("PROGRAMFILES(X86)"), steamFolder, "Factorio"),
@@ -47,7 +47,7 @@ namespace Foreman
                 {
                     if (Directory.Exists(defaultPath))
                     {
-                        FoundInstallation inst = FoundInstallation.GetInstallationFromPath(defaultPath);
+                        GameInstallation inst = new GameInstallation("", new Version());
                         if (inst != null)
                             installations.Add(inst);
                     }
@@ -80,7 +80,7 @@ namespace Foreman
                 }
             }
 
-            if (!Directory.Exists(Properties.Settings.Default.AllGameInstallationDirectories))
+            if (!Directory.Exists(Properties.Settings.Default.GameInstallationDirectory))
             {
                 using (DirectoryChooserForm form = new DirectoryChooserForm(""))
                 {
@@ -100,9 +100,9 @@ namespace Foreman
 
             if (!Directory.Exists(Properties.Settings.Default.GameModDirectory))
             {
-                if (Directory.Exists(Path.Combine(Properties.Settings.Default.AllGameInstallationDirectories, "mods")))
+                if (Directory.Exists(Path.Combine(Properties.Settings.Default.GameInstallationDirectory, "mods")))
                 {
-                    Properties.Settings.Default["FactorioModPath"] = Path.Combine(Properties.Settings.Default.AllGameInstallationDirectories, "mods");
+                    Properties.Settings.Default["FactorioModPath"] = Path.Combine(Properties.Settings.Default.GameInstallationDirectory, "mods");
                 }
                 else if (Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "factorio", "mods")))
                 {
@@ -395,7 +395,7 @@ namespace Foreman
 
 		private void FactorioDirectoryButton_Click(object sender, EventArgs e)
 		{
-			using (DirectoryChooserForm form = new DirectoryChooserForm(Properties.Settings.Default.AllGameInstallationDirectories))
+			using (DirectoryChooserForm form = new DirectoryChooserForm(Properties.Settings.Default.GameInstallationDirectory))
 			{
 				form.Text = "Locate the factorio directory";
 				if (form.ShowDialog() == DialogResult.OK)

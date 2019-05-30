@@ -13,16 +13,16 @@ namespace Foreman
 {
 	public partial class InstallationChooserForm: Form
 	{
-        private List<FoundInstallation> installations;
+        private List<GameInstallation> installations;
 		public String SelectedPath;
 
-		public InstallationChooserForm(List<FoundInstallation> installations)
+		public InstallationChooserForm(List<GameInstallation> installations)
 		{
             this.installations = installations;
 			SelectedPath = null;
 			InitializeComponent();
 
-            foreach (FoundInstallation i in installations)
+            foreach (GameInstallation i in installations)
             {
                 this.comboBox1.Items.Add(i.DirPath + " v" + i.Version);
             }

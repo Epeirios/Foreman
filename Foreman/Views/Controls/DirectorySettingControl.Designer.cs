@@ -45,7 +45,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(708, 278);
+            this.groupBox1.Size = new System.Drawing.Size(1064, 159);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -53,7 +53,7 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 6;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 0F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -68,10 +68,10 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(702, 259);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1058, 140);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelDirectory
@@ -88,44 +88,46 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(370, 0);
-            this.labelInfo.MaximumSize = new System.Drawing.Size(100, 13);
-            this.labelInfo.MinimumSize = new System.Drawing.Size(100, 13);
+            this.labelInfo.Location = new System.Drawing.Point(503, 0);
+            this.labelInfo.MaximumSize = new System.Drawing.Size(200, 13);
+            this.labelInfo.MinimumSize = new System.Drawing.Size(200, 13);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(100, 13);
+            this.labelInfo.Size = new System.Drawing.Size(200, 13);
             this.labelInfo.TabIndex = 1;
             this.labelInfo.Text = "Info";
             // 
             // labelInfoValue
             // 
             this.labelInfoValue.AutoSize = true;
-            this.labelInfoValue.Location = new System.Drawing.Point(370, 29);
+            this.labelInfoValue.Location = new System.Drawing.Point(503, 27);
             this.labelInfoValue.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
-            this.labelInfoValue.MaximumSize = new System.Drawing.Size(100, 13);
-            this.labelInfoValue.MinimumSize = new System.Drawing.Size(100, 13);
+            this.labelInfoValue.MaximumSize = new System.Drawing.Size(200, 13);
+            this.labelInfoValue.MinimumSize = new System.Drawing.Size(200, 13);
             this.labelInfoValue.Name = "labelInfoValue";
-            this.labelInfoValue.Size = new System.Drawing.Size(100, 13);
+            this.labelInfoValue.Size = new System.Drawing.Size(200, 13);
             this.labelInfoValue.TabIndex = 2;
             this.labelInfoValue.Text = "InfoValue";
             // 
             // comboBoxSelectDirectory
             // 
+            this.comboBoxSelectDirectory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSelectDirectory.FormattingEnabled = true;
-            this.comboBoxSelectDirectory.Location = new System.Drawing.Point(3, 26);
-            this.comboBoxSelectDirectory.MaximumSize = new System.Drawing.Size(300, 0);
-            this.comboBoxSelectDirectory.MinimumSize = new System.Drawing.Size(300, 0);
+            this.comboBoxSelectDirectory.Location = new System.Drawing.Point(3, 24);
+            this.comboBoxSelectDirectory.MaximumSize = new System.Drawing.Size(450, 0);
+            this.comboBoxSelectDirectory.MinimumSize = new System.Drawing.Size(450, 0);
             this.comboBoxSelectDirectory.Name = "comboBoxSelectDirectory";
-            this.comboBoxSelectDirectory.Size = new System.Drawing.Size(300, 21);
+            this.comboBoxSelectDirectory.Size = new System.Drawing.Size(450, 21);
             this.comboBoxSelectDirectory.TabIndex = 4;
             this.comboBoxSelectDirectory.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
             // 
             // buttonSelectDirectory
             // 
-            this.buttonSelectDirectory.Location = new System.Drawing.Point(324, 26);
-            this.buttonSelectDirectory.MaximumSize = new System.Drawing.Size(25, 21);
-            this.buttonSelectDirectory.MinimumSize = new System.Drawing.Size(25, 21);
+            this.buttonSelectDirectory.Location = new System.Drawing.Point(458, 23);
+            this.buttonSelectDirectory.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonSelectDirectory.MaximumSize = new System.Drawing.Size(25, 23);
+            this.buttonSelectDirectory.MinimumSize = new System.Drawing.Size(25, 23);
             this.buttonSelectDirectory.Name = "buttonSelectDirectory";
-            this.buttonSelectDirectory.Size = new System.Drawing.Size(25, 21);
+            this.buttonSelectDirectory.Size = new System.Drawing.Size(25, 23);
             this.buttonSelectDirectory.TabIndex = 9;
             this.buttonSelectDirectory.Text = "...";
             this.buttonSelectDirectory.UseVisualStyleBackColor = true;
@@ -136,8 +138,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
+            this.MinimumSize = new System.Drawing.Size(480, 70);
             this.Name = "DirectorySettingControl";
-            this.Size = new System.Drawing.Size(708, 278);
+            this.Size = new System.Drawing.Size(1064, 159);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

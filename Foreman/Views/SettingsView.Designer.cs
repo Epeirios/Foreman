@@ -32,6 +32,7 @@
             this.buttonSaveAndApply = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelSettingsLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanelSettingsControls = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,18 +48,15 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.buttonSaveAndApply, 5, 10);
-            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 3, 10);
+            this.tableLayoutPanel1.Controls.Add(this.buttonSaveAndApply, 5, 6);
+            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 3, 6);
             this.tableLayoutPanel1.Controls.Add(this.labelSettingsLabel, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanelSettingsControls, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 12;
+            this.tableLayoutPanel1.RowCount = 8;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -111,6 +109,23 @@
             this.labelSettingsLabel.Text = "Settings";
             this.labelSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tableLayoutPanelSettingsControls
+            // 
+            this.tableLayoutPanelSettingsControls.AutoSize = true;
+            this.tableLayoutPanelSettingsControls.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanelSettingsControls.ColumnCount = 1;
+            this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanelSettingsControls, 5);
+            this.tableLayoutPanelSettingsControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelSettingsControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelSettingsControls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelSettingsControls.Location = new System.Drawing.Point(40, 65);
+            this.tableLayoutPanelSettingsControls.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanelSettingsControls.Name = "tableLayoutPanelSettingsControls";
+            this.tableLayoutPanelSettingsControls.RowCount = 1;
+            this.tableLayoutPanelSettingsControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelSettingsControls.Size = new System.Drawing.Size(472, 1);
+            this.tableLayoutPanelSettingsControls.TabIndex = 9;
+            // 
             // SettingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -130,5 +145,6 @@
         private System.Windows.Forms.Button buttonSaveAndApply;
         private System.Windows.Forms.Label labelSettingsLabel;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSettingsControls;
     }
 }

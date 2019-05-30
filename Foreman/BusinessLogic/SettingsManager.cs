@@ -10,8 +10,6 @@ namespace Foreman.BusinessLogic
     {
         public SettingsManager()
         {
-            SearchGameDirectories();
-            SearchModDirectories();
         }
 
         Language ISettingsManager.CurrentLanguage
@@ -33,16 +31,20 @@ namespace Foreman.BusinessLogic
 
                 return language;
             }
-            set => throw new NotImplementedException();
+            set
+            {
+                Properties.Settings.Default.Language = value.LanguageID;
+                Properties.Settings.Default.Save();
+            }
         }
 
-        public FoundInstallation CurrentGameInstallation
+        public GameInstallation CurrentGameInstallation
         {
             get
             {
                 string dir = Properties.Settings.Default.GameInstallationDirectory;
 
-                FoundInstallation installation = GetGameInstalationFromDir(dir);
+                GameInstallation installation = GetGameInstalationFromDir(dir);
 
                 return installation;
             }
@@ -61,30 +63,78 @@ namespace Foreman.BusinessLogic
             }
             set
             {
-                Properties.Settings.Default.GameInstallationDirectory = value;
-                Properties.Settings.Default.Save();
+                if (Directory.Exists(value))
+                {
+                    System.Collections.Specialized.StringCollection knownDirs = new System.Collections.Specialized.StringCollection();
+                    
+                    List<string> instalDirs = new List<string>();
+
+                    foreach (var install in SearchGameInstallations())
+                    {
+                        instalDirs.Add(install.DirPath);
+                    }
+
+                    knownDirs.AddRange(instalDirs.ToArray());
+
+                    if (!knownDirs.Contains(value))
+                    {
+                        knownDirs.Add(value);
+                    }
+
+                    Properties.Settings.Default.AllGameInstallationDirectories = knownDirs;
+                    Properties.Settings.Default.GameInstallationDirectory = value;
+                    Properties.Settings.Default.Save();
+                }               
             }
         }
 
         public string CurrentModDirectory
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get
+            {
+                return Properties.Settings.Default.GameModDirectory;
+            }
+            set
+            {
+                if (Directory.Exists(value))
+                {
+                    System.Collections.Specialized.StringCollection knownDirs = new System.Collections.Specialized.StringCollection();
+                    knownDirs.AddRange(SearchModDirectories());
+                    
+                    if (!knownDirs.Contains(value))
+                    {
+                        knownDirs.Add(value);
+                    }
+
+                    Properties.Settings.Default.AllGameModDirectories = knownDirs;
+                    Properties.Settings.Default.GameModDirectory = value;
+                    Properties.Settings.Default.Save();
+                }                
+            }
         }
 
         public string[] GetFoundInstallationDirectories()
         {
-            throw new NotImplementedException();
+            GameInstallation[] installations = SearchGameInstallations();
+
+            List<string> installationDirs = new List<string>();
+
+            foreach (var item in installations)
+            {
+                installationDirs.Add(item.DirPath);
+            }
+
+            return installationDirs.ToArray();
         }
 
-        public FoundInstallation[] GetFoundInstallations()
+        public GameInstallation[] GetFoundInstallations()
         {
-            throw new NotImplementedException();
+            return SearchGameInstallations();
         }
 
         public string[] GetFoundModDirectories()
         {
-            throw new NotImplementedException();
+            return SearchModDirectories();
         }
 
         public Language[] GetLanguages()
@@ -92,10 +142,10 @@ namespace Foreman.BusinessLogic
             throw new NotImplementedException();
         }
 
-        private FoundInstallation[] SearchGameDirectories()
+        private GameInstallation[] SearchGameInstallations()
         {
             System.Collections.Specialized.StringCollection possibleDirs = new System.Collections.Specialized.StringCollection();
-            List<FoundInstallation> installations = new List<FoundInstallation>();
+            List<GameInstallation> installations = new List<GameInstallation>();
 
             String steamFolder = Path.Combine("Steam", "steamapps", "common");
 
@@ -122,7 +172,7 @@ namespace Foreman.BusinessLogic
             {
                 if (Directory.Exists(dir))
                 {
-                    FoundInstallation instal = GetGameInstalationFromDir(dir);
+                    GameInstallation instal = GetGameInstalationFromDir(dir);
 
                     if (instal != null)
                     {
@@ -134,7 +184,7 @@ namespace Foreman.BusinessLogic
             return installations.ToArray();
         }
 
-        private FoundInstallation GetGameInstalationFromDir(string dir)
+        public GameInstallation GetGameInstalationFromDir(string dir)
         {
             if (Directory.Exists(dir))
             {
@@ -163,7 +213,7 @@ namespace Foreman.BusinessLogic
                     newMod.parsedVersion = new Version(0, 0, 0);
                 }
 
-                return new FoundInstallation(dir, newMod.parsedVersion);
+                return new GameInstallation(dir, newMod.parsedVersion);
             }
             return null;
         }
@@ -175,8 +225,7 @@ namespace Foreman.BusinessLogic
             String steamFolder = Path.Combine("Steam", "steamapps", "common");
 
             possibleDirs.AddRange(new string[]{
-                Path.Combine(Properties.Settings.Default.GameModDirectory, "mods"),
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "factorio", "mods")         
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Factorio", "mods")         
             });
 
             System.Collections.Specialized.StringCollection savedDirs = Properties.Settings.Default.AllGameModDirectories;

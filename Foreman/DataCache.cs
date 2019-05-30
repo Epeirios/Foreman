@@ -56,7 +56,7 @@ namespace Foreman
             }
         }
 
-        private static String DataPath { get { return Path.Combine(Properties.Settings.Default.AllGameInstallationDirectories, "data"); } }
+        private static String DataPath { get { return Path.Combine(Properties.Settings.Default.GameInstallationDirectory, "data"); } }
         private static String ModPath { get { return Properties.Settings.Default.GameModDirectory; } }
 
         public static List<Mod> Mods = new List<Mod>();

@@ -26,11 +26,20 @@ namespace Foreman.Views
 
         public void SetSettingsControls(ISettingsControl[] settingsControls)
         {
-            tableLayoutPanel1.Controls.Clear();
+            tableLayoutPanelSettingsControls.Controls.Clear();
 
-            for (int i = 0; i < settingsControls.Length; i++)
+            int row = 0;
+                        
+            foreach (Control control in settingsControls)
             {
-                tableLayoutPanel1.Controls.Add((Control)settingsControls[i], 3 + (i * 2), 1);
+                control.Dock = DockStyle.Fill;
+                ((UserControl)control).AutoSize = true;
+                ((UserControl)control).AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                
+                tableLayoutPanelSettingsControls.RowStyles.Insert(row , new RowStyle(SizeType.AutoSize));
+                tableLayoutPanelSettingsControls.Controls.Add(control, 0, row);
+
+                row += 1;
             }
         }
 

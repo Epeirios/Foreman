@@ -43,7 +43,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(525, 254);
+            this.groupBox1.Size = new System.Drawing.Size(552, 259);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -62,7 +62,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(519, 235);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(546, 240);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelLanguage
@@ -78,6 +78,7 @@
             // 
             // comboBoxLanguage
             // 
+            this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLanguage.FormattingEnabled = true;
             this.comboBoxLanguage.Location = new System.Drawing.Point(3, 16);
             this.comboBoxLanguage.MaximumSize = new System.Drawing.Size(200, 0);
@@ -92,8 +93,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
+            this.MinimumSize = new System.Drawing.Size(211, 58);
             this.Name = "LanguageSettingControl";
-            this.Size = new System.Drawing.Size(525, 254);
+            this.Size = new System.Drawing.Size(552, 259);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
