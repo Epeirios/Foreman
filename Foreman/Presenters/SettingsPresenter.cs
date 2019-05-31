@@ -14,35 +14,37 @@ namespace Foreman.Presenters
     {
         private bool isSetupState = false;
 
+        private Settings settings;
+
         private ISettingsView settingsView;
-        private ISettingsManager settingsManager;
 
         private IDirectorySettingControl gameDirectorySettingControl;
         private IDirectorySettingControl modDirectorySettingControl;
         private ILanguageSettingControl languageSettingControl;
 
-        public SettingsPresenter(ISettingsView settingsView, ISettingsManager settingsManager)
+        public SettingsPresenter(ISettingsView settingsView)
         {
             this.settingsView = settingsView;
-            this.settingsManager = settingsManager;
 
             gameDirectorySettingControl = new DirectorySettingControl();
             modDirectorySettingControl = new DirectorySettingControl();
             languageSettingControl = new LanguageSettingControl();
+
+            settings = new Settings();
 
             gameDirectorySettingControl.DirectoryButtonPressed += GameDirectorySettingControl_DirectoryButtonPressed;
             gameDirectorySettingControl.DirectoryChanged += GameDirectorySettingControl_DirectoryChanged;
             gameDirectorySettingControl.SetDirectotyLabel("Game directory");
             gameDirectorySettingControl.SetInfoLabel("Game version");
             gameDirectorySettingControl.SetInfoValue(string.Empty);
-            gameDirectorySettingControl.SetDirectories(settingsManager.GetFoundInstallationDirectories());
+            gameDirectorySettingControl.SetDirectories(settings.GetGameInstallationDirectories());
             
             modDirectorySettingControl.DirectoryButtonPressed += ModDirectorySettingControl_DirectoryButtonPressed;
             modDirectorySettingControl.DirectoryChanged += ModDirectorySettingControl_DirectoryChanged;
             modDirectorySettingControl.SetDirectotyLabel("Mod directory");
             modDirectorySettingControl.SetInfoLabel("Mods in mods folder");
             modDirectorySettingControl.SetInfoValue(string.Empty);
-            modDirectorySettingControl.SetDirectories(settingsManager.GetFoundModDirectories());
+            modDirectorySettingControl.SetDirectories(settings.GetModDirectories());
 
             languageSettingControl.SetLabel("Language");
 
@@ -83,35 +85,22 @@ namespace Foreman.Presenters
 
             modDirectorySettingControl.SetInfoValue(string.Empty);
 
-            if (Directory.Exists(selectedModDir))
+            if (settings.VerifyModDirectory(selectedModDir))
             {
-                if (Path.GetFileName(selectedModDir) == "Factorio")
+                settings.CurrentModDirectory = selectedModDir;
+
+                List<string> modFiles = new List<string>();
+                string[] files = Directory.GetFiles(settings.CurrentModDirectory);
+
+                foreach (var file in files)
                 {
-                    if (Directory.Exists(Path.Combine(selectedModDir, "mods")))
+                    if (Path.GetExtension(file) == ".zip")
                     {
-                        modDirectorySettingControl.SetSelectedDirectory(Path.Combine(selectedModDir, "mods"));
+                        modFiles.Add(file);
                     }
                 }
-                else if (Path.GetFileName(selectedModDir) == "mods")
-                {
-                    if (Directory.GetParent(selectedModDir).Name == "Factorio")
-                    {
-                        List<string> modFiles = new List<string>();
-                        string[] files = Directory.GetFiles(selectedModDir);
 
-                        foreach (var file in files)
-                        {
-                            if (Path.GetExtension(file) == ".zip")
-                            {
-                                modFiles.Add(file);
-                            }
-                        }
-
-                        modDirectorySettingControl.SetInfoValue(modFiles.Count.ToString());
-
-                        settingsManager.CurrentModDirectory = selectedModDir;
-                    }
-                }
+                modDirectorySettingControl.SetInfoValue(modFiles.Count.ToString());
             }
         }
 
@@ -130,21 +119,25 @@ namespace Foreman.Presenters
 
             if (result == DialogResult.OK)
             {
-                modDirectorySettingControl.SetSelectedDirectory(dialog.SelectedPath);
+                settings.CurrentModDirectory = dialog.SelectedPath;
+                modDirectorySettingControl.SetDirectories(settings.GetModDirectories());
+                modDirectorySettingControl.SetSelectedDirectory(settings.CurrentModDirectory);
             }
         }
 
         private void GameDirectorySettingControl_DirectoryChanged(object sender, EventArgs e)
         {
-            GameInstallation installation = settingsManager.GetGameInstalationFromDir(gameDirectorySettingControl.GetSelectedDirectory());
+            string gameDir = gameDirectorySettingControl.GetSelectedDirectory();
             
             gameDirectorySettingControl.SetInfoValue(string.Empty);
 
-            if (installation != null)
+            if (settings.VerifyGameDirectory(gameDir))
             {
-                gameDirectorySettingControl.SetInfoValue(installation.Version.ToString());
+                settings.CurrentGameInstallationDirectory = gameDir;
 
-                settingsManager.CurrentGameInstallation = installation;
+                GameInstallation installation = settings.CurrentGameInstallation;
+
+                gameDirectorySettingControl.SetInfoValue(installation.Version.ToString());
             }
         }
 
@@ -163,7 +156,9 @@ namespace Foreman.Presenters
 
             if (result == DialogResult.OK)
             {
-                gameDirectorySettingControl.SetSelectedDirectory(dialog.SelectedPath);
+                settings.CurrentGameInstallationDirectory = dialog.SelectedPath;
+                gameDirectorySettingControl.SetDirectories(settings.GetGameInstallationDirectories());
+                gameDirectorySettingControl.SetSelectedDirectory(settings.CurrentGameInstallationDirectory);
             }
         }
 
@@ -175,7 +170,7 @@ namespace Foreman.Presenters
             }
             else
             {
-
+                settings = new Settings();
             }
         }
 
@@ -183,19 +178,22 @@ namespace Foreman.Presenters
         {
             if (isSetupState)
             {
-                isSetupState = false;
-            }            
+                InitializeSettingsView();
+            }
+
+            settings.SaveSettings();
+            settings = new Settings();
         }
 
         private void CheckIfSetupRequired()
         {
-            GameInstallation savedInstallation = settingsManager.CurrentGameInstallation;
-            string savedModDirectory = settingsManager.CurrentModDirectory;
+            GameInstallation savedInstallation = settings.CurrentGameInstallation;
+            string savedModDirectory = settings.CurrentModDirectory;
 
             if (savedInstallation == null || 
                 string.IsNullOrWhiteSpace(savedModDirectory) ||
-                settingsManager.GetFoundInstallationDirectories().Length == 0 ||
-                settingsManager.GetFoundModDirectories().Length == 0 ||
+                settings.GetGameInstallationDirectories().Length == 0 ||
+                settings.GetModDirectories().Length == 0 ||
                 !Directory.Exists(savedModDirectory)
                 )
             {
@@ -209,25 +207,25 @@ namespace Foreman.Presenters
 
         private void SetupControls()
         {
-            GameInstallation gameInstallation = settingsManager.CurrentGameInstallation;
-            string modDir = settingsManager.CurrentModDirectory;
+            GameInstallation gameInstallation = settings.CurrentGameInstallation;
+            string modDir = settings.CurrentModDirectory;
 
             if (gameInstallation != null)
             {
                 gameDirectorySettingControl.SetSelectedDirectory(gameInstallation.DirPath);
             }
-            else if (settingsManager.GetFoundInstallationDirectories().Length >= 1)
+            else if (settings.GetGameInstallationDirectories().Length >= 1)
             {
-                gameDirectorySettingControl.SetSelectedDirectory(settingsManager.GetFoundInstallationDirectories()[0]);
+                gameDirectorySettingControl.SetSelectedDirectory(settings.GetGameInstallationDirectories()[0]);
             }
 
             if (Directory.Exists(modDir))
             {
                 modDirectorySettingControl.SetSelectedDirectory(modDir);
             }
-            else if (settingsManager.GetFoundModDirectories().Length >= 1)
+            else if (settings.GetModDirectories().Length >= 1)
             {
-                modDirectorySettingControl.SetSelectedDirectory(settingsManager.GetFoundModDirectories()[0]);
+                modDirectorySettingControl.SetSelectedDirectory(settings.GetModDirectories()[0]);
             }
         }
     }

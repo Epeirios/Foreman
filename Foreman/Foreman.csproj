@@ -114,8 +114,6 @@
   <ItemGroup>
     <Compile Include="Assembler.cs" />
     <Compile Include="AssemblerBox.cs" />
-    <Compile Include="BusinessLogic\SettingsManager.cs" />
-    <Compile Include="BusinessLogic\ISettingsManager.cs" />
     <Compile Include="BusinessLogic\IPropertiesManager.cs" />
     <Compile Include="BusinessLogic\PropertiesManager.cs" />
     <Compile Include="CancellableProgress.cs" />
@@ -161,7 +159,8 @@
     <Compile Include="ErrorLogging.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\ModuleSelector.cs" />
-    <Compile Include="Models\FoundInstallation.cs" />
+    <Compile Include="Models\GameInstallation.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Solver\GoogleSolver.cs" />
     <Compile Include="GraphicsStuff.cs" />
     <Compile Include="GraphElement.cs" />
