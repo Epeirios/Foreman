@@ -36,7 +36,7 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.ModuleSelectionBox = new System.Windows.Forms.CheckedListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ModSelectionBox = new CheckboxListWithErrors();
+            this.ModSelectionBox = new CheckedListBoxWithErrors();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -184,6 +184,6 @@
 		private System.Windows.Forms.GroupBox groupBox7;
 		private System.Windows.Forms.CheckedListBox ModuleSelectionBox;
 		private System.Windows.Forms.GroupBox groupBox1;
-		private CheckboxListWithErrors ModSelectionBox;
+		private CheckedListBoxWithErrors ModSelectionBox;
     }
 }

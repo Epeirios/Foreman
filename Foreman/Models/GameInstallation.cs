@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Foreman.Models.SerializableObjects;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 
@@ -7,44 +8,28 @@ namespace Foreman.Models
     public class GameInstallation
     {
         public string DirPath { get; }
-        public Version Version { get; }
+        public Version Version { get => BaseGameMod.ModVersion; }
+        public Mod BaseGameMod { get; }
 
-        public GameInstallation(string dirPath, Version version)
+        private GameInstallation(string dirPath, Mod baseGameMod)
         {
-            this.DirPath = dirPath;
-            this.Version = version;
+            DirPath = dirPath;
+            BaseGameMod = baseGameMod;
         }
 
         public static GameInstallation GetGameInstalationFromDir(string dir)
         {
             if (Directory.Exists(dir))
             {
-                String json = "";
-                String infoFile = Path.Combine(dir, "data", "base", "info.json");
-                try
+                string json = "";
+                string infoFile = Path.Combine(dir, "data", "base", "info.json");
+
+                if (Utils.ReadJsonFile(infoFile, out json))
                 {
-                    if (!File.Exists(infoFile))
-                    {
-                        return null;
-                    }
-                    json = File.ReadAllText(infoFile);
+                    Mod baseMod = new Mod(JsonConvert.DeserializeObject<ModInfo>(json));
+
+                    return new GameInstallation(dir, baseMod);
                 }
-                catch (Exception)
-                {
-                    ErrorLogging.LogLine(String.Format("The Installation at '{0}' has an invalid info.json file", infoFile));
-                }
-
-                if (json == "")
-                    return null;
-
-                Mod newMod = JsonConvert.DeserializeObject<Mod>(json);
-
-                if (!Version.TryParse(newMod.version, out newMod.parsedVersion))
-                {
-                    newMod.parsedVersion = new Version(0, 0, 0);
-                }
-
-                return new GameInstallation(dir, newMod.parsedVersion);
             }
             return null;
         }

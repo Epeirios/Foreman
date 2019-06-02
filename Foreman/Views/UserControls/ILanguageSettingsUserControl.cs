@@ -2,7 +2,7 @@
 
 namespace Foreman.Views.Controls
 {
-    public interface ILanguageSettingControl : ISettingsControl
+    public interface ILanguageSettingsControl : ISettingsControl
     {
         event EventHandler SelectedLanguageChanged;
 

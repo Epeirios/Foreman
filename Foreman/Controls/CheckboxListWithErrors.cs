@@ -7,13 +7,13 @@ using System.Drawing;
 
 namespace Foreman
 {
-	public class CheckboxListWithErrors : CheckedListBox
+	public class CheckedListBoxWithErrors : CheckedListBox
 	{
         public Dictionary<int, string> errors = new Dictionary<int, string>();
         private int tooltipIndex = -1;
         private ToolTip tooltip;
 
-        public CheckboxListWithErrors()
+        public CheckedListBoxWithErrors()
         {
             this.tooltip = new ToolTip();
             this.tooltip.InitialDelay = 200;

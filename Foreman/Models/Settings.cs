@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Foreman.Models.ControlModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Foreman.Models
 {
@@ -8,17 +10,31 @@ namespace Foreman.Models
     {
         private Language currentLanguage;
         private GameInstallation currentGameInstallation;
-        private string currentModDirectory;
+        private ModDirectory currentModDirectory;
+        private bool useModList;
 
         private GameInstallation[] gameInstallations;
-        private string[] modDirectories;
+        private ModDirectory[] modDirectories;
+        private string[] enabledMods;
 
         public Settings()
         {
             LoadSettings();
         }
 
-        Language CurrentLanguage
+        public bool UseModList
+        {
+            get
+            {
+                return useModList;
+            }
+            set
+            {
+                useModList = value;
+            }
+        }
+
+        public Language CurrentLanguage
         {
             get
             {
@@ -42,13 +58,20 @@ namespace Foreman.Models
         {
             get
             {
-                return currentGameInstallation.DirPath;
+                if (currentGameInstallation != null)
+                {
+                    return currentGameInstallation.DirPath;
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
             set
             {
                 if (VerifyGameDirectory(value))
                 {
-                    List<GameInstallation> installations = new List<GameInstallation>();                    
+                    List<GameInstallation> installations = new List<GameInstallation>();
                     installations.AddRange(gameInstallations);
 
                     GameInstallation installation = GameInstallation.GetGameInstalationFromDir(value);
@@ -64,51 +87,52 @@ namespace Foreman.Models
             }
         }
 
-        public string CurrentModDirectory
+        public ModDirectory CurrentModDirectory
         {
             get
             {
                 return currentModDirectory;
             }
+        }
+
+        public string CurrentModDirectoryString
+        {
+            get
+            {
+                if (currentModDirectory != null)
+                {
+                    return currentModDirectory.Directory;
+                }
+                else
+                {
+                    return string.Empty;
+                }                
+            }
             set
             {
                 if (VerifyModDirectory(value))
                 {
-                    if (Path.GetFileName(value) == "Factorio")
+                    string dir = CorrectifyModDirectory(value);
+                    ModDirectory modDirectory = null;
+
+                    List<ModDirectory> dirs = new List<ModDirectory>();
+                    dirs.AddRange(modDirectories);
+
+                    if (!dirs.Select(x => x.Directory).ToArray().Contains(value))
                     {
-                        string correctedDir = Path.Combine(value, "mods");
+                        modDirectory = ModDirectory.GetModDirectoryFromDir(value, enabledMods);
 
-                        if (Directory.Exists(correctedDir))
-                        {
-                            List<string> dirs = new List<string>();
-                            dirs.AddRange(modDirectories);
-
-                            if (!dirs.Contains(correctedDir))
-                            {
-                                dirs.Add(correctedDir);
-                            }
-                            modDirectories = dirs.ToArray();
-
-                            currentModDirectory = correctedDir;
-                            return;
-                        }
+                        dirs.Add(modDirectory);
                     }
-                    else if (Path.GetFileName(value) == "mods")
+
+                    modDirectories = dirs.ToArray();
+
+                    if (modDirectory != null)
                     {
-                        if (Directory.GetParent(value).Name == "Factorio")
-                        {
-                            List<string> dirs = new List<string>();
-                            dirs.AddRange(modDirectories);
-
-                            if (!dirs.Contains(value))
-                            {
-                                dirs.Add(value);
-                            }
-                            modDirectories = dirs.ToArray();
-
-                            currentModDirectory = value;
-                        }
+                        currentModDirectory = modDirectory;
                     }
+                    
+                    return;
                 }
             }
         }
@@ -132,7 +156,22 @@ namespace Foreman.Models
             return gameInstallations;
         }
 
-        public string[] GetModDirectories()
+        public string[] GetModDirectoryStrings()
+        {
+            List<string> directories = new List<string>();
+
+            foreach (var item in modDirectories)
+            {
+                if (item != null)
+                {
+                    directories.Add(item.Directory);
+                }                
+            }
+
+            return directories.ToArray();
+        }
+
+        public ModDirectory[] GetModDirectories()
         {
             return modDirectories;
         }
@@ -182,7 +221,7 @@ namespace Foreman.Models
             return installations.ToArray();
         }
 
-        private string[] SearchModDirectories()
+        private ModDirectory[] SearchModDirectories()
         {
             List<string> possibleDirs = new List<string>();
 
@@ -205,7 +244,19 @@ namespace Foreman.Models
                 }
             }
 
-            return possibleDirs.ToArray();
+            List<ModDirectory> modDirectories = new List<ModDirectory>();
+
+            foreach (var item in possibleDirs)
+            {
+                var modDir = ModDirectory.GetModDirectoryFromDir(item, enabledMods);
+
+                if (modDir != null)
+                {
+                    modDirectories.Add(modDir);
+                }                
+            }
+
+            return modDirectories.ToArray();
         }
 
         public bool VerifyGameDirectory(string dir)
@@ -218,6 +269,23 @@ namespace Foreman.Models
             }
 
             return legit;
+        }
+
+        public string CorrectifyModDirectory(string dir)
+        {
+            if (VerifyModDirectory(dir))
+            {
+                if (Path.GetFileName(dir) == "Factorio")
+                {
+                    string correctedDir = Path.Combine(dir, "mods");
+
+                    if (Directory.Exists(correctedDir))
+                    {
+                        dir = correctedDir;
+                    }
+                }
+            }
+            return dir;
         }
 
         public bool VerifyModDirectory(string dir)
@@ -252,24 +320,42 @@ namespace Foreman.Models
             return collection;
         }
 
+        private string[] StringCollectionToStringArray(System.Collections.Specialized.StringCollection collection)
+        {
+            List<string> strings = new List<string>();
+
+            foreach (var item in collection)
+            {
+                strings.Add(item);
+            }
+
+            return strings.ToArray();
+        }
+
         public void LoadSettings()
         {
+            enabledMods = StringCollectionToStringArray(Properties.Settings.Default.EnabledMods);
+
             currentLanguage = new Language(Properties.Settings.Default.Language, "English");
             currentGameInstallation = GameInstallation.GetGameInstalationFromDir(Properties.Settings.Default.GameInstallationDirectory);
-            currentModDirectory = Properties.Settings.Default.GameModDirectory;
+            currentModDirectory = ModDirectory.GetModDirectoryFromDir(Properties.Settings.Default.GameModDirectory, enabledMods);
+            useModList = Properties.Settings.Default.UseModList;
 
             gameInstallations = SearchGameInstallations();
             modDirectories = SearchModDirectories();
+            enabledMods = StringCollectionToStringArray(Properties.Settings.Default.EnabledMods);
         }
 
         public void SaveSettings()
         {
             Properties.Settings.Default.Language = currentLanguage.LanguageID;
             Properties.Settings.Default.GameInstallationDirectory = currentGameInstallation.DirPath;
-            Properties.Settings.Default.GameModDirectory = currentModDirectory;
+            Properties.Settings.Default.GameModDirectory = currentModDirectory.Directory;
+            Properties.Settings.Default.UseModList = useModList;
 
             Properties.Settings.Default.AllGameInstallationDirectories = StringArrayToStringCollection(GetGameInstallationDirectories());
-            Properties.Settings.Default.AllGameModDirectories = StringArrayToStringCollection(modDirectories);
+            Properties.Settings.Default.AllGameModDirectories = StringArrayToStringCollection(GetModDirectoryStrings());
+            Properties.Settings.Default.EnabledMods = StringArrayToStringCollection(enabledMods);
 
             Properties.Settings.Default.Save();
         }

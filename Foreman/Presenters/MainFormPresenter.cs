@@ -1,10 +1,6 @@
 ﻿using Foreman.Events;
 using Foreman.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Foreman.Presenters
 {
@@ -18,7 +14,15 @@ namespace Foreman.Presenters
 
             mainForm.MainFormLoaded += MainFormLoaded;
 
-            mainForm.ShowSettingsView();
+            EventAggregator.Instance.Subscribe<SetupRequiredMessage>(m =>
+            {
+                mainForm.ShowSettingsView();
+            });
+
+            EventAggregator.Instance.Subscribe<SettingsConfiguredMessage>(m =>
+            {
+                mainForm.ShowLoadingView();
+            });
         }
 
         private void MainFormLoaded(object sender, EventArgs e)

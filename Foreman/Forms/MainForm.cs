@@ -47,9 +47,9 @@ namespace Foreman
                 {
                     if (Directory.Exists(defaultPath))
                     {
-                        GameInstallation inst = new GameInstallation("", new Version());
-                        if (inst != null)
-                            installations.Add(inst);
+                        //GameInstallation inst = new GameInstallation("", new Version());
+                        //if (inst != null)
+                        //    installations.Add(inst);
                     }
                 }
 

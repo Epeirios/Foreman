@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace Foreman.Views.Controls
 {
-    public partial class LanguageSettingControl : UserControl, ILanguageSettingControl
+    public partial class LanguageSettingsControl : UserControl, ILanguageSettingsControl
     {
-        public LanguageSettingControl()
+        public LanguageSettingsControl()
         {
             InitializeComponent();
         }
@@ -31,11 +31,6 @@ namespace Foreman.Views.Controls
         public void SetSelectedLanguage(string selectedLanguage)
         {
             comboBoxLanguage.Text = selectedLanguage;
-        }
-
-        public void SetVisibility(bool visible)
-        {
-            groupBox1.Visible = visible;
         }
 
         private void comboBoxLanguage_TextChanged(object sender, EventArgs e)

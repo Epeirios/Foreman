@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Foreman
 {
-	public class Mod
+    public class Mod
 	{
 		public String Name = "";
 		public String title = "";

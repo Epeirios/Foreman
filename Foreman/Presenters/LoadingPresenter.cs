@@ -1,9 +1,5 @@
-﻿using Foreman.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Foreman.Events;
+using Foreman.Views;
 
 namespace Foreman.Presenters
 {
@@ -15,8 +11,18 @@ namespace Foreman.Presenters
         {
             this.loadingview = loadingview;
 
-            loadingview.SetLoadingText("dit is een test");
-            loadingview.SetProgress(50);
+            loadingview.SetLoadingText("Loading game data");
+            loadingview.SetProgress(0);
+
+            EventAggregator.Instance.Subscribe<SettingsConfiguredMessage>(m =>
+            {
+                SetupView();
+            });
+        }
+
+        private void SetupView()
+        {
+            loadingview.SetProgress(0);
         }
     }
 }

@@ -136,5 +136,17 @@ namespace Foreman.Properties {
                 this["AllGameModDirectories"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseModList {
+            get {
+                return ((bool)(this["UseModList"]));
+            }
+            set {
+                this["UseModList"] = value;
+            }
+        }
     }
 }

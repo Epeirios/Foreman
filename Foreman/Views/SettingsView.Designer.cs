@@ -123,7 +123,7 @@
             this.tableLayoutPanelSettingsControls.Name = "tableLayoutPanelSettingsControls";
             this.tableLayoutPanelSettingsControls.RowCount = 1;
             this.tableLayoutPanelSettingsControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelSettingsControls.Size = new System.Drawing.Size(472, 1);
+            this.tableLayoutPanelSettingsControls.Size = new System.Drawing.Size(682, 1);
             this.tableLayoutPanelSettingsControls.TabIndex = 9;
             // 
             // SettingsView

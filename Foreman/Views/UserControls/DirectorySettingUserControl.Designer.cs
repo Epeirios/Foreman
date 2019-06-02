@@ -45,7 +45,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1064, 159);
+            this.groupBox1.Size = new System.Drawing.Size(713, 159);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -71,7 +71,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1058, 140);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(707, 140);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelDirectory
@@ -113,8 +113,8 @@
             this.comboBoxSelectDirectory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSelectDirectory.FormattingEnabled = true;
             this.comboBoxSelectDirectory.Location = new System.Drawing.Point(3, 24);
-            this.comboBoxSelectDirectory.MaximumSize = new System.Drawing.Size(450, 0);
-            this.comboBoxSelectDirectory.MinimumSize = new System.Drawing.Size(450, 0);
+            this.comboBoxSelectDirectory.MaximumSize = new System.Drawing.Size(350, 0);
+            this.comboBoxSelectDirectory.MinimumSize = new System.Drawing.Size(350, 0);
             this.comboBoxSelectDirectory.Name = "comboBoxSelectDirectory";
             this.comboBoxSelectDirectory.Size = new System.Drawing.Size(450, 21);
             this.comboBoxSelectDirectory.TabIndex = 4;
@@ -138,9 +138,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
-            this.MinimumSize = new System.Drawing.Size(480, 70);
+            this.MinimumSize = new System.Drawing.Size(713, 70);
             this.Name = "DirectorySettingControl";
-            this.Size = new System.Drawing.Size(1064, 159);
+            this.Size = new System.Drawing.Size(713, 159);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

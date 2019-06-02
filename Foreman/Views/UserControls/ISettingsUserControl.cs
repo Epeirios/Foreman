@@ -2,6 +2,5 @@
 {
     public interface ISettingsControl
     {
-        void SetVisibility(bool visible);
     }
 }
