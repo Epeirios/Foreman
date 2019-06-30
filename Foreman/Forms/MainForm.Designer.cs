@@ -104,7 +104,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1306, 800);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1098, 637);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // MainToolbar
@@ -121,7 +121,7 @@
             this.MainToolbar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainToolbar.Location = new System.Drawing.Point(3, 3);
             this.MainToolbar.Name = "MainToolbar";
-            this.MainToolbar.Size = new System.Drawing.Size(1300, 99);
+            this.MainToolbar.Size = new System.Drawing.Size(1092, 99);
             this.MainToolbar.TabIndex = 2;
             // 
             // groupBox1
@@ -435,7 +435,7 @@
             this.GraphViewer.DraggedElement = null;
             this.GraphViewer.Location = new System.Drawing.Point(213, 108);
             this.GraphViewer.Name = "GraphViewer";
-            this.GraphViewer.Size = new System.Drawing.Size(1090, 689);
+            this.GraphViewer.Size = new System.Drawing.Size(882, 526);
             this.GraphViewer.TabIndex = 12;
             // 
             // ListTabControl
@@ -448,7 +448,7 @@
             this.ListTabControl.Name = "ListTabControl";
             this.ListTabControl.Padding = new System.Drawing.Point(0, 0);
             this.ListTabControl.SelectedIndex = 0;
-            this.ListTabControl.Size = new System.Drawing.Size(210, 695);
+            this.ListTabControl.Size = new System.Drawing.Size(210, 532);
             this.ListTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.ListTabControl.TabIndex = 17;
             // 
@@ -458,7 +458,7 @@
             this.ItemTabPage.Location = new System.Drawing.Point(4, 22);
             this.ItemTabPage.Margin = new System.Windows.Forms.Padding(0);
             this.ItemTabPage.Name = "ItemTabPage";
-            this.ItemTabPage.Size = new System.Drawing.Size(202, 669);
+            this.ItemTabPage.Size = new System.Drawing.Size(202, 506);
             this.ItemTabPage.TabIndex = 0;
             this.ItemTabPage.Text = "Items";
             this.ItemTabPage.UseVisualStyleBackColor = true;
@@ -478,7 +478,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(202, 669);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(202, 506);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // ItemFilterTextBox
@@ -494,7 +494,7 @@
             // AddItemButton
             // 
             this.AddItemButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AddItemButton.Location = new System.Drawing.Point(3, 641);
+            this.AddItemButton.Location = new System.Drawing.Point(3, 478);
             this.AddItemButton.Name = "AddItemButton";
             this.AddItemButton.Size = new System.Drawing.Size(196, 25);
             this.AddItemButton.TabIndex = 18;
@@ -514,7 +514,7 @@
             this.ItemListView.LabelWrap = false;
             this.ItemListView.Location = new System.Drawing.Point(3, 29);
             this.ItemListView.Name = "ItemListView";
-            this.ItemListView.Size = new System.Drawing.Size(196, 606);
+            this.ItemListView.Size = new System.Drawing.Size(196, 443);
             this.ItemListView.SmallImageList = this.ItemImageList;
             this.ItemListView.TabIndex = 15;
             this.ItemListView.UseCompatibleStateImageBehavior = false;
@@ -620,7 +620,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1306, 800);
+            this.ClientSize = new System.Drawing.Size(1098, 637);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
             this.KeyPreview = true;

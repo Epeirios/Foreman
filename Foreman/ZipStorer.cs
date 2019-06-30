@@ -641,13 +641,25 @@ namespace System.IO.Compression
         }
         private DateTime DosTimeToDateTime(uint _dt)
         {
-            return new DateTime(
+            DateTime dateTime = DateTime.Now;
+
+            try
+            {
+                dateTime = new DateTime(
                 (int)(_dt >> 25) + 1980,
                 (int)(_dt >> 21) & 15,
                 (int)(_dt >> 16) & 31,
                 (int)(_dt >> 11) & 31,
                 (int)(_dt >> 5) & 63,
                 (int)(_dt & 31) * 2);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+
+            return dateTime;
         }
 
         /* CRC32 algorithm

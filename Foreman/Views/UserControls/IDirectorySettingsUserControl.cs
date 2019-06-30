@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Foreman.Views.Controls
+namespace Foreman.Views.UserControls
 {
-    public interface IDirectorySettingControl : ISettingsControl
+    public interface IDirectorySettingsUserControl : ISettingsUserControl
     {
         event EventHandler DirectoryButtonPressed;
         event EventHandler DirectoryChanged;

@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ForemanFrontend.Views.Usercontrols.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ForemanFrontend.Views.Usercontrols"
+             mc:Ignorable="d" Height="771.833" Width="813.5">
+    <Grid x:Name="grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition MaxWidth="10" Width="10"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="labelSettings" Content="Settings" Grid.Row="1" Grid.Column="1" FontSize="22" FontWeight="Bold" VerticalAlignment="Top"/>
+        <Button x:Name="button" Content="Button" Grid.Column="3" Grid.Row="6" Width="100" Height="23" HorizontalAlignment="Left"/>
+        <Button x:Name="button1" Content="Button" Grid.Column="5" Grid.Row="6" Height="23" Width="100"/>
+        <Grid x:Name="SettingUserControlGrid" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" UseLayoutRounding="False" ShowGridLines="True" Grid.ColumnSpan="5" Grid.Column="1" Margin="0" Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <local:GameInstallationSettingsUserControl Height="Auto" Width="Auto"/>
+            <local:ModSettingsUserControl Grid.Row="1" Width="Auto" Height="Auto"/>
+            <local:LanguageSettingsUserControl Grid.Row="2"/>
+        </Grid>
+    </Grid>
+</UserControl>

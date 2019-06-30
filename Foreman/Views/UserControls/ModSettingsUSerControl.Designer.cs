@@ -1,6 +1,6 @@
-﻿namespace Foreman.Views.Controls
+﻿namespace Foreman.Views.UserControls
 {
-    partial class ModSettingsControl
+    partial class ModSettingsUserControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -49,20 +49,20 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(743, 377);
+            this.groupBox1.Size = new System.Drawing.Size(613, 500);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 6;
+            this.tableLayoutPanel1.ColumnCount = 7;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 0F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.labelDirectory, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelInfo, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelInfoValue, 4, 2);
@@ -85,7 +85,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(737, 358);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(607, 481);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelDirectory
@@ -102,7 +102,7 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(403, 0);
+            this.labelInfo.Location = new System.Drawing.Point(398, 0);
             this.labelInfo.MaximumSize = new System.Drawing.Size(200, 13);
             this.labelInfo.MinimumSize = new System.Drawing.Size(200, 13);
             this.labelInfo.Name = "labelInfo";
@@ -113,7 +113,7 @@
             // labelInfoValue
             // 
             this.labelInfoValue.AutoSize = true;
-            this.labelInfoValue.Location = new System.Drawing.Point(403, 27);
+            this.labelInfoValue.Location = new System.Drawing.Point(398, 27);
             this.labelInfoValue.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
             this.labelInfoValue.MaximumSize = new System.Drawing.Size(200, 13);
             this.labelInfoValue.MinimumSize = new System.Drawing.Size(200, 13);
@@ -173,31 +173,38 @@
             // 
             // treeViewModProperties
             // 
+            this.tableLayoutPanel1.SetColumnSpan(this.treeViewModProperties, 2);
             this.treeViewModProperties.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewModProperties.Location = new System.Drawing.Point(403, 113);
+            this.treeViewModProperties.Location = new System.Drawing.Point(398, 113);
+            this.treeViewModProperties.MaximumSize = new System.Drawing.Size(350, 350);
+            this.treeViewModProperties.MinimumSize = new System.Drawing.Size(350, 350);
             this.treeViewModProperties.Name = "treeViewModProperties";
             this.treeViewModProperties.ShowPlusMinus = false;
-            this.treeViewModProperties.Size = new System.Drawing.Size(200, 242);
+            this.treeViewModProperties.Size = new System.Drawing.Size(350, 350);
             this.treeViewModProperties.TabIndex = 13;
             // 
             // checkedListBoxSelectedMods
             // 
+            this.tableLayoutPanel1.SetColumnSpan(this.checkedListBoxSelectedMods, 3);
             this.checkedListBoxSelectedMods.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkedListBoxSelectedMods.FormattingEnabled = true;
             this.checkedListBoxSelectedMods.Location = new System.Drawing.Point(3, 113);
             this.checkedListBoxSelectedMods.Name = "checkedListBoxSelectedMods";
-            this.checkedListBoxSelectedMods.Size = new System.Drawing.Size(350, 242);
+            this.checkedListBoxSelectedMods.Size = new System.Drawing.Size(379, 365);
             this.checkedListBoxSelectedMods.TabIndex = 14;
+            this.checkedListBoxSelectedMods.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxSelectedMods_SelectedIndexChanged);
+            this.checkedListBoxSelectedMods.SelectedValueChanged += new System.EventHandler(this.checkedListBoxSelectedMods_SelectedValueChanged);
             // 
-            // ModSettingsControl
+            // ModSettingsUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.groupBox1);
             this.MaximumSize = new System.Drawing.Size(0, 500);
             this.MinimumSize = new System.Drawing.Size(613, 264);
-            this.Name = "ModSettingsControl";
-            this.Size = new System.Drawing.Size(743, 377);
+            this.Name = "ModSettingsUserControl";
+            this.Size = new System.Drawing.Size(613, 500);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foreman", "Foreman\Foreman.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForemanTest", "ForemanTest\ForemanTest.csproj", "{7B688C0A-979D-4BB9-9E7A-84E63208A697}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForemanFrontend", "ForemanFrontend\ForemanFrontend.csproj", "{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,26 @@ Global
 		{7B688C0A-979D-4BB9-9E7A-84E63208A697}.Release|x64.Build.0 = Release|x64
 		{7B688C0A-979D-4BB9-9E7A-84E63208A697}.Release|x86.ActiveCfg = Release|Any CPU
 		{7B688C0A-979D-4BB9-9E7A-84E63208A697}.Release|x86.Build.0 = Release|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Debug|Win32.Build.0 = Debug|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Debug|x64.Build.0 = Debug|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Debug|x86.Build.0 = Debug|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Release|Win32.ActiveCfg = Release|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Release|Win32.Build.0 = Release|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Release|x64.ActiveCfg = Release|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Release|x64.Build.0 = Release|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Release|x86.ActiveCfg = Release|Any CPU
+		{4C3FE7E1-8180-4AD9-9FF9-22E5AD23493E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

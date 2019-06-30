@@ -1,6 +1,6 @@
-﻿namespace Foreman.Views.Controls
+﻿namespace Foreman.Views.UserControls
 {
-    public interface ISettingsControl
+    public interface ISettingsUserControl
     {
     }
 }

@@ -4,15 +4,15 @@ using System;
 
 namespace Foreman.Presenters
 {
-    public class MainFormPresenter
+    public class MainWindowPresenter
     {
-        IMainForm mainForm;
+        IMainWindow mainForm;
 
-        public MainFormPresenter(IMainForm mainForm)
+        public MainWindowPresenter(IMainWindow mainForm)
         {
             this.mainForm = mainForm;
 
-            mainForm.MainFormLoaded += MainFormLoaded;
+            mainForm.MainWindowLoaded += MainFormLoaded;
 
             EventAggregator.Instance.Subscribe<SetupRequiredMessage>(m =>
             {

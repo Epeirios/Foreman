@@ -1,13 +1,12 @@
-﻿using Foreman.BusinessLogic;
-using Foreman.Events;
+﻿using Foreman.Events;
 using Foreman.Views;
-using Foreman.Views.Controls;
 using Foreman.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using Foreman.Models.ControlModels;
+using System.Linq;
+using Foreman.Views.UserControls;
 
 namespace Foreman.Presenters
 {
@@ -19,44 +18,45 @@ namespace Foreman.Presenters
 
         private ISettingsView settingsView;
 
-        private IDirectorySettingControl gameDirectorySettingControl;
-        private IModSettingsControl modSettingsControl;
-        private ILanguageSettingsControl languageSettingControl;
+        private IDirectorySettingsUserControl directorySettingsUserControl;
+        private IModSettingsUserControl modSettingsUserControl;
+        private ILanguageSettingsUserControl languageSettingsUserControl;
 
-        public SettingsPresenter(ISettingsView settingsView)
+        public SettingsPresenter(ISettingsView settingsView, IModSettingsUserControl modSettingsUserControl, IDirectorySettingsUserControl directorySettingsUserControl, ILanguageSettingsUserControl languageSettingsUserControl)
         {
             this.settingsView = settingsView;
 
-            gameDirectorySettingControl = new DirectorySettingControl();
-            modSettingsControl = new ModSettingsControl();
-            languageSettingControl = new LanguageSettingsControl();
+            this.directorySettingsUserControl = directorySettingsUserControl;
+            this.modSettingsUserControl = modSettingsUserControl;
+            this.languageSettingsUserControl = languageSettingsUserControl;
 
             settings = new Settings();
 
-            gameDirectorySettingControl.DirectoryButtonPressed += GameDirectorySettingControl_DirectoryButtonPressed;
-            gameDirectorySettingControl.DirectoryChanged += GameDirectorySettingControl_DirectoryChanged;
-            gameDirectorySettingControl.SetDirectotyLabel("Game directory");
-            gameDirectorySettingControl.SetInfoLabel("Game version");
-            gameDirectorySettingControl.SetInfoValue(string.Empty);
-            gameDirectorySettingControl.SetDirectories(settings.GetGameInstallationDirectories());
+            this.directorySettingsUserControl.DirectoryButtonPressed += GameDirectorySettingControl_DirectoryButtonPressed;
+            this.directorySettingsUserControl.DirectoryChanged += GameDirectorySettingControl_DirectoryChanged;
+            this.directorySettingsUserControl.SetDirectotyLabel("Game directory");
+            this.directorySettingsUserControl.SetInfoLabel("Game version");
+            this.directorySettingsUserControl.SetInfoValue(string.Empty);
+            this.directorySettingsUserControl.SetDirectories(settings.GetGameInstallationDirectories());
             
-            modSettingsControl.DirectoryButtonPressed += ModDirectorySettingControl_DirectoryButtonPressed;
-            modSettingsControl.DirectoryChanged += ModDirectorySettingControl_DirectoryChanged;
-            modSettingsControl.RadioButtonChanged += ModSettingsControl_RadioButtonChanged;
-            modSettingsControl.SelectedModChanged += ModSettingsControl_SelectedModChanged;
-            modSettingsControl.DirectoryLabel = "Mod directory";
-            modSettingsControl.InfoLabel = ("Mods in mods folder");
-            modSettingsControl.RadioModListLabel = "Use modlist";
-            modSettingsControl.RadioCustomListLabel = "Custom modlist";
-            modSettingsControl.InfoValue = (string.Empty);
-            modSettingsControl.Directories = settings.GetModDirectoryStrings();
+            this.modSettingsUserControl.DirectoryButtonPressed += ModDirectorySettingControl_DirectoryButtonPressed;
+            this.modSettingsUserControl.DirectoryChanged += ModDirectorySettingControl_DirectoryChanged;
+            this.modSettingsUserControl.RadioButtonChanged += ModSettingsControl_RadioButtonChanged;
+            this.modSettingsUserControl.SelectedModChanged += ModSettingsControl_SelectedModChanged;
+            this.modSettingsUserControl.CheckedModsChanged += ModSettingsControl_CheckedModsChanged;
+            this.modSettingsUserControl.DirectoryLabel = "Mod directory";
+            this.modSettingsUserControl.InfoLabel = ("Mods selected");
+            this.modSettingsUserControl.RadioModListLabel = "Use modlist";
+            this.modSettingsUserControl.RadioCustomListLabel = "Custom modlist";
+            this.modSettingsUserControl.InfoValue = (string.Empty);
+            this.modSettingsUserControl.Directories = settings.GetModDirectoryStrings();
 
-            languageSettingControl.SetLabel("Language");
+            this.languageSettingsUserControl.SetLabel("Language");
 
-            ISettingsControl[] settingsControls =
+            ISettingsUserControl[] settingsControls =
             {
-                gameDirectorySettingControl,
-                modSettingsControl                
+                this.directorySettingsUserControl,
+                this.modSettingsUserControl                
             };
 
             settingsView.SaveAndApplyButtonPressed += SettingsView_SaveAndApplyButtonPressed;
@@ -86,16 +86,41 @@ namespace Foreman.Presenters
              });
         }
 
+        private void ModSettingsControl_CheckedModsChanged(object sender, EventArgs e)
+        {
+            modSettingsUserControl.InfoValue = (modSettingsUserControl.ModList.Where(kv => kv.Enabled).Count().ToString() + " / " + modSettingsUserControl.ModList.Count());
+
+            settings.CurrentModDirectory.SetModListFromCheckedModListBoxItems(modSettingsUserControl.ModList);
+            modSettingsUserControl.ModList = settings.CurrentModDirectory.GetCheckedListBoxItemsModList();
+        }
+
         private void ModSettingsControl_SelectedModChanged(object sender, EventArgs e)
         {
-            string selectedModName = modSettingsControl.SelectedMod;
+            string selectedModName = modSettingsUserControl.SelectedMod;
 
+            List<TreeNode> treeNode = new List<TreeNode>();
+            var mod = settings.CurrentModDirectory.ModInfoList.Where(element => element.Key.ModName == selectedModName).First().Key;
 
+            treeNode.Add(new TreeNode($"Mod title: {mod.ModTitle}"));
+            treeNode.Add(new TreeNode($"Mod name: {mod.ModName}"));
+            treeNode.Add(new TreeNode($"Mod version: {mod.ModVersion.ToString()}"));
+            treeNode.Add(new TreeNode($"Required Factorio version: {mod.FactorioVersion.ToString()}"));
+
+            TreeNode dependencies = new TreeNode("Dependencies");
+
+            foreach (var item in mod.Dependencies)
+            {
+                dependencies.Nodes.Add($"{item.ModName} {item.VersionType.ToString()} {item.ModVersion} Optional: {item.Optional.ToString()}");
+            }
+
+            treeNode.Add(dependencies);
+
+            //modSettingsControl.ModInfoProperties = treeNode.ToArray();
         }
 
         private void ModSettingsControl_RadioButtonChanged(object sender, EventArgs e)
         {
-            modSettingsControl.CustomModSelectionEnabled = !modSettingsControl.RadioUseModListSelected;
+            modSettingsUserControl.CustomModSelectionEnabled = !modSettingsUserControl.RadioUseModListSelected;
         }
 
         private void InitializeSetupView()
@@ -112,9 +137,9 @@ namespace Foreman.Presenters
 
         private void ModDirectorySettingControl_DirectoryChanged(object sender, EventArgs e)
         {
-            string selectedModDir = modSettingsControl.SelectedDirectory;
+            string selectedModDir = modSettingsUserControl.SelectedDirectory;
 
-            modSettingsControl.InfoValue = (string.Empty);
+            modSettingsUserControl.InfoValue = (string.Empty);
 
             if (settings.VerifyModDirectory(selectedModDir))
             {
@@ -131,7 +156,7 @@ namespace Foreman.Presenters
                     }
                 }
 
-                modSettingsControl.InfoValue = (modFiles.Count.ToString());
+                modSettingsUserControl.InfoValue = (settings.CurrentModDirectory.ModInfoList.Values.Where(kv => kv == true).Count().ToString() + " / " + settings.CurrentModDirectory.ModInfoList.Count.ToString());
             }
         }
 
@@ -139,7 +164,7 @@ namespace Foreman.Presenters
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
 
-            string dir = modSettingsControl.SelectedDirectory;
+            string dir = modSettingsUserControl.SelectedDirectory;
 
             if (Directory.Exists(dir))
             {
@@ -151,16 +176,16 @@ namespace Foreman.Presenters
             if (result == DialogResult.OK)
             {
                 settings.CurrentModDirectoryString = dialog.SelectedPath;
-                modSettingsControl.Directories = (settings.GetModDirectoryStrings());
-                modSettingsControl.SelectedDirectory = (settings.CurrentModDirectoryString);
+                modSettingsUserControl.Directories = (settings.GetModDirectoryStrings());
+                modSettingsUserControl.SelectedDirectory = (settings.CurrentModDirectoryString);
             }
         }
 
         private void GameDirectorySettingControl_DirectoryChanged(object sender, EventArgs e)
         {
-            string gameDir = gameDirectorySettingControl.GetSelectedDirectory();
+            string gameDir = directorySettingsUserControl.GetSelectedDirectory();
             
-            gameDirectorySettingControl.SetInfoValue(string.Empty);
+            directorySettingsUserControl.SetInfoValue(string.Empty);
 
             if (settings.VerifyGameDirectory(gameDir))
             {
@@ -168,7 +193,7 @@ namespace Foreman.Presenters
 
                 GameInstallation installation = settings.CurrentGameInstallation;
 
-                gameDirectorySettingControl.SetInfoValue(installation.Version.ToString());
+                directorySettingsUserControl.SetInfoValue(installation.Version.ToString());
             }
         }
 
@@ -176,7 +201,7 @@ namespace Foreman.Presenters
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
 
-            string dir = gameDirectorySettingControl.GetSelectedDirectory();
+            string dir = directorySettingsUserControl.GetSelectedDirectory();
 
             if (Directory.Exists(dir))
             {
@@ -188,8 +213,8 @@ namespace Foreman.Presenters
             if (result == DialogResult.OK)
             {
                 settings.CurrentGameInstallationDirectory = dialog.SelectedPath;
-                gameDirectorySettingControl.SetDirectories(settings.GetGameInstallationDirectories());
-                gameDirectorySettingControl.SetSelectedDirectory(settings.CurrentGameInstallationDirectory);
+                directorySettingsUserControl.SetDirectories(settings.GetGameInstallationDirectories());
+                directorySettingsUserControl.SetSelectedDirectory(settings.CurrentGameInstallationDirectory);
             }
         }
 
@@ -248,20 +273,20 @@ namespace Foreman.Presenters
 
             if (gameInstallation != null)
             {
-                gameDirectorySettingControl.SetSelectedDirectory(gameInstallation.DirPath);
+                directorySettingsUserControl.SetSelectedDirectory(gameInstallation.DirPath);
             }
             else if (settings.GetGameInstallationDirectories().Length >= 1)
             {
-                gameDirectorySettingControl.SetSelectedDirectory(settings.GetGameInstallationDirectories()[0]);
+                directorySettingsUserControl.SetSelectedDirectory(settings.GetGameInstallationDirectories()[0]);
             }
 
             if (settings.VerifyModDirectory(modDir))
             {
-                modSettingsControl.SelectedDirectory = (modDir);
+                modSettingsUserControl.SelectedDirectory = (modDir);
             }
             else if (settings.GetModDirectories().Length >= 1)
             {
-                modSettingsControl.SelectedDirectory = (settings.GetModDirectoryStrings()[0]);
+                modSettingsUserControl.SelectedDirectory = (settings.GetModDirectoryStrings()[0]);
             }
 
             bool useModList = settings.UseModList;
@@ -271,11 +296,11 @@ namespace Foreman.Presenters
 
             }
 
-            modSettingsControl.RadioUseModListSelected = useModList;
+            modSettingsUserControl.RadioUseModListSelected = useModList;
 
 
 
-            modSettingsControl.ModList = settings.CurrentModDirectory.GetCheckedListBoxItemsModList();
+            modSettingsUserControl.ModList = settings.CurrentModDirectory.GetCheckedListBoxItemsModList();
 
         }
 

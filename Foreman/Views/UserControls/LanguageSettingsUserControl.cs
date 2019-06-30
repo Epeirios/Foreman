@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Foreman.Views.Controls
+namespace Foreman.Views.UserControls
 {
-    public partial class LanguageSettingsControl : UserControl, ILanguageSettingsControl
+    public partial class LanguageSettingsUserControl : UserControl, ILanguageSettingsUserControl
     {
-        public LanguageSettingsControl()
+        public LanguageSettingsUserControl()
         {
             InitializeComponent();
         }

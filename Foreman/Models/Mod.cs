@@ -33,56 +33,59 @@ namespace Foreman.Models
         {
             List<ModDependency> modDependencies = new List<ModDependency>();
 
-            foreach (var item in dependencies)
+            if (dependencies != null)
             {
-                string modName = "noName";
-                Version modVersion = new Version();
-                DependencyType dependencyType = DependencyType.EqualTo;
-                bool optional = false;
-
-                int offset = 0;
-
-                string[] stringElements = item.Split(' ');
-                int lenght = stringElements.Length;
-
-                if (lenght >= 3)
+                foreach (var item in dependencies)
                 {
-                    if (stringElements.Length == 4)
+                    string modName = "noName";
+                    Version modVersion = new Version();
+                    DependencyType dependencyType = DependencyType.EqualTo;
+                    bool optional = false;
+
+                    int offset = 0;
+
+                    string[] stringElements = item.Split(' ');
+                    int lenght = stringElements.Length;
+
+                    if (lenght >= 3)
                     {
-                        if (stringElements[0] == "?")
+                        if (stringElements.Length == 4)
                         {
-                            optional = true;
-                            offset += 1;
+                            if (stringElements[0] == "?")
+                            {
+                                optional = true;
+                                offset += 1;
+                            }
                         }
-                    }
 
-                    switch (stringElements[offset + 1])
+                        switch (stringElements[offset + 1])
+                        {
+                            case "=":
+                                dependencyType = DependencyType.EqualTo;
+                                break;
+                            case ">":
+                                dependencyType = DependencyType.GreaterThan;
+                                break;
+                            case ">=":
+                                dependencyType = DependencyType.GreaterThanOrEqual;
+                                break;
+                            default:
+                                break;
+                        }
+
+
+                        Version.TryParse(stringElements[offset + 2], out modVersion);
+                    }
+                    else if (lenght == 2)
                     {
-                        case "=":
-                            dependencyType = DependencyType.EqualTo;
-                            break;
-                        case ">":
-                            dependencyType = DependencyType.GreaterThan;
-                            break;
-                        case ">=":
-                            dependencyType = DependencyType.GreaterThanOrEqual;
-                            break;
-                        default:
-                            break;
+                        dependencyType = DependencyType.GreaterThanOrEqual;
+                        modVersion = new Version();
                     }
 
+                    modName = stringElements[offset + 0];
 
-                    Version.TryParse(stringElements[offset + 2], out modVersion);
+                    modDependencies.Add(new ModDependency(modName, modVersion, dependencyType, optional));
                 }
-                else if (lenght == 2)
-                {
-                    dependencyType = DependencyType.GreaterThanOrEqual;
-                    modVersion = new Version();
-                }
-
-                modName = stringElements[offset + 0];
-
-                modDependencies.Add(new ModDependency(modName, modVersion, dependencyType, optional));
             }
 
             return modDependencies.ToArray();

@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Foreman.Views.Controls
+namespace Foreman.Views.UserControls
 {
-    public partial class ModSettingsControl : UserControl, IModSettingsControl
+    public partial class ModSettingsUserControl : UserControl, IModSettingsUserControl
     {
-        public ModSettingsControl()
+        public ModSettingsUserControl()
         {
             InitializeComponent();
         }
@@ -16,6 +16,7 @@ namespace Foreman.Views.Controls
         public event EventHandler DirectoryChanged;
         public event EventHandler RadioButtonChanged;
         public event EventHandler SelectedModChanged;
+        public event EventHandler CheckedModsChanged;
 
         public string InfoLabel
         {
@@ -105,7 +106,16 @@ namespace Foreman.Views.Controls
         {
             get
             {
-                return ((CheckedModListBoxItem)checkedListBoxSelectedMods.SelectedItem).ModName;
+                if ((CheckedModListBoxItem)checkedListBoxSelectedMods.SelectedItem != null)
+                {
+                    return ((CheckedModListBoxItem)checkedListBoxSelectedMods.SelectedItem).ModName;
+                }
+                else if (checkedListBoxSelectedMods.Items.Count >= 0)
+                {
+                    return ((CheckedModListBoxItem)checkedListBoxSelectedMods.Items[0]).ModName;
+                }
+
+                return string.Empty;
             }
             set
             {
@@ -119,12 +129,13 @@ namespace Foreman.Views.Controls
             }
         }
 
-        public TreeNode ModProperties
+        public TreeNode[] ModInfoProperties
         {
             set
             {
                 treeViewModProperties.Nodes.Clear();
-                treeViewModProperties.Nodes.Add(value);
+                treeViewModProperties.Nodes.AddRange(value);
+                treeViewModProperties.ExpandAll();
             }
         }
 
@@ -171,6 +182,11 @@ namespace Foreman.Views.Controls
         private void checkedListBoxSelectedMods_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectedModChanged(this, new EventArgs());
+        }
+
+        private void checkedListBoxSelectedMods_SelectedValueChanged(object sender, EventArgs e)
+        {
+            CheckedModsChanged(this, new EventArgs());
         }
     }
 }

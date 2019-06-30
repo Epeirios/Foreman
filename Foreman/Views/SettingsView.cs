@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Foreman.Views.Controls;
+using Foreman.Views.UserControls;
 
 namespace Foreman.Views
 {
@@ -24,20 +25,20 @@ namespace Foreman.Views
             buttonSaveAndApply.Text = text;
         }
 
-        public void SetSettingsControls(ISettingsControl[] settingsControls)
+        public void SetSettingsControls(ISettingsUserControl[] settingsControls)
         {
             tableLayoutPanelSettingsControls.Controls.Clear();
 
             int row = 0;
                         
             foreach (Control control in settingsControls)
-            {
+            {                
+                tableLayoutPanelSettingsControls.RowStyles.Insert(row , new RowStyle(SizeType.AutoSize));
+                tableLayoutPanelSettingsControls.Controls.Add(control, 0, row);
+
                 control.Dock = DockStyle.Fill;
                 ((UserControl)control).AutoSize = true;
                 ((UserControl)control).AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                
-                tableLayoutPanelSettingsControls.RowStyles.Insert(row , new RowStyle(SizeType.AutoSize));
-                tableLayoutPanelSettingsControls.Controls.Add(control, 0, row);
 
                 row += 1;
             }

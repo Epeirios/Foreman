@@ -1,6 +1,6 @@
-﻿namespace Foreman.Views.Controls
+﻿namespace Foreman.Views.UserControls
 {
-    partial class LanguageSettingsControl
+    partial class LanguageSettingsUserControl
     {
         /// <summary> 
         /// Required designer variable.

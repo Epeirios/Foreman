@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Foreman.Views.Controls
+namespace Foreman.Views.UserControls
 {
-    public interface ILanguageSettingsControl : ISettingsControl
+    public interface ILanguageSettingsUserControl : ISettingsUserControl
     {
         event EventHandler SelectedLanguageChanged;
 

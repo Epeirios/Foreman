@@ -1,6 +1,6 @@
-﻿namespace Foreman.Views.Controls
+﻿namespace Foreman.Views.UserControls
 {
-    partial class DirectorySettingControl
+    partial class DirectorySettingUserControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -45,7 +45,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(713, 159);
+            this.groupBox1.Size = new System.Drawing.Size(746, 183);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -71,7 +71,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(707, 140);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(740, 164);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelDirectory
@@ -88,7 +88,7 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(503, 0);
+            this.labelInfo.Location = new System.Drawing.Point(403, 0);
             this.labelInfo.MaximumSize = new System.Drawing.Size(200, 13);
             this.labelInfo.MinimumSize = new System.Drawing.Size(200, 13);
             this.labelInfo.Name = "labelInfo";
@@ -99,7 +99,7 @@
             // labelInfoValue
             // 
             this.labelInfoValue.AutoSize = true;
-            this.labelInfoValue.Location = new System.Drawing.Point(503, 27);
+            this.labelInfoValue.Location = new System.Drawing.Point(403, 27);
             this.labelInfoValue.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
             this.labelInfoValue.MaximumSize = new System.Drawing.Size(200, 13);
             this.labelInfoValue.MinimumSize = new System.Drawing.Size(200, 13);
@@ -116,13 +116,13 @@
             this.comboBoxSelectDirectory.MaximumSize = new System.Drawing.Size(350, 0);
             this.comboBoxSelectDirectory.MinimumSize = new System.Drawing.Size(350, 0);
             this.comboBoxSelectDirectory.Name = "comboBoxSelectDirectory";
-            this.comboBoxSelectDirectory.Size = new System.Drawing.Size(450, 21);
+            this.comboBoxSelectDirectory.Size = new System.Drawing.Size(350, 21);
             this.comboBoxSelectDirectory.TabIndex = 4;
             this.comboBoxSelectDirectory.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
             // 
             // buttonSelectDirectory
             // 
-            this.buttonSelectDirectory.Location = new System.Drawing.Point(458, 23);
+            this.buttonSelectDirectory.Location = new System.Drawing.Point(358, 23);
             this.buttonSelectDirectory.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSelectDirectory.MaximumSize = new System.Drawing.Size(25, 23);
             this.buttonSelectDirectory.MinimumSize = new System.Drawing.Size(25, 23);
@@ -133,14 +133,14 @@
             this.buttonSelectDirectory.UseVisualStyleBackColor = true;
             this.buttonSelectDirectory.Click += new System.EventHandler(this.buttonSelectDirectory_Click);
             // 
-            // DirectorySettingControl
+            // DirectorySettingUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.MinimumSize = new System.Drawing.Size(713, 70);
-            this.Name = "DirectorySettingControl";
-            this.Size = new System.Drawing.Size(713, 159);
+            this.Name = "DirectorySettingUserControl";
+            this.Size = new System.Drawing.Size(746, 183);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

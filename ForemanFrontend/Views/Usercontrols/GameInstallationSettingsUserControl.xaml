@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="ForemanFrontend.Views.Usercontrols.GameInstallationSettingsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ForemanFrontend.Views.Usercontrols"
+             mc:Ignorable="d" Height="235.143" Width="610.041">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="450"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label x:Name="labelSettingsUserControlName" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-5.685,-1.849" FontSize="16" FontWeight="Bold" Content="Mod Settings" Grid.Row="1"/>
+        <Label x:Name="labelSettingsUserControlName_Copy" Content="DirectoryLabel" HorizontalAlignment="Left" Margin="0,1.54,0,0" VerticalAlignment="Top" RenderTransformOrigin="-5.685,-1.849" Grid.Row="2"/>
+        <Label x:Name="labelSettingsUserControlName_Copy1" Content="InfoLabel" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-5.685,-1.849" Grid.Row="2" Grid.Column="4" d:LayoutOverrides="HorizontalAlignment"/>
+        <Label x:Name="labelSettingsUserControlName_Copy2" Content="InfoValue" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-5.685,-1.849" Grid.Row="3" Grid.Column="3" Margin="0,0,-0.002,0"/>
+        <ComboBox x:Name="comboBox" Margin="5,0,5,4" Grid.Row="3" MinWidth="134"/>
+        <Button x:Name="button" Content="..." Grid.Column="1" Margin="0,0,0,4" Grid.Row="3" HorizontalAlignment="Left" Width="{Binding ActualHeight, ElementName=button}" RenderTransformOrigin="0.552,0.277"/>
+    </Grid>
+</UserControl>

@@ -1,4 +1,4 @@
-﻿using Foreman.Views.Controls;
+﻿using Foreman.Views.UserControls;
 using System;
 
 namespace Foreman.Views
@@ -8,7 +8,7 @@ namespace Foreman.Views
         event EventHandler SaveAndApplyButtonPressed;
         event EventHandler CancelButtonPressed;
 
-        void SetSettingsControls(ISettingsControl[] settingsControls);
+        void SetSettingsControls(ISettingsUserControl[] settingsControls);
         void SetCancelButtonText(string text);
         void SetSaveAndApplyButtonText(string text);
         void SetSettingsLabel(string text);

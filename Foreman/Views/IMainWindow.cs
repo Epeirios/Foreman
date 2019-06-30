@@ -7,11 +7,11 @@ using System.Windows.Forms;
 
 namespace Foreman.Views
 {
-    public interface IMainForm
+    public interface IMainWindow
     {
         void ShowLoadingView();
         void ShowSettingsView();
 
-        event EventHandler MainFormLoaded;
+        event EventHandler MainWindowLoaded;
     }
 }

@@ -43,6 +43,18 @@ namespace Foreman.Models
             return modInfoList;
         }
 
+        public void SetModListFromCheckedModListBoxItems(CheckedModListBoxItem[] items)
+        {
+            Dictionary<Mod, bool> newModInfoList = new Dictionary<Mod, bool>();
+
+            foreach (var item in ModInfoList)
+            {
+                newModInfoList.Add(item.Key, items.Where(e => e.ModName == item.Key.ModName).First().Enabled);
+            }
+
+            ModInfoList = newModInfoList;
+        }
+
         private Dictionary<Mod, bool> RetrieveModsFromModList(string dir, ModList modList, string[] enabledMods)
         {
             Dictionary<Mod, bool> modInfoList = new Dictionary<Mod, bool>();

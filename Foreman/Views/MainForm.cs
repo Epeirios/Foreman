@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Foreman.Views
 {
-    public partial class MainForm : Form, IMainForm
+    public partial class MainForm : Form, IMainWindow
     {
         private readonly ILoadingView loadingView;
         private readonly ISettingsView settingsView;
@@ -23,7 +23,7 @@ namespace Foreman.Views
             this.settingsView = settingsView;
         }
 
-        public event EventHandler MainFormLoaded
+        public event EventHandler MainWindowLoaded
         {
             add { this.Load += value; }
             remove { this.Load -= value; }

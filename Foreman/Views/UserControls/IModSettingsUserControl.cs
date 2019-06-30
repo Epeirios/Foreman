@@ -1,16 +1,16 @@
 ﻿using Foreman.Models.ControlModels;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Foreman.Views.Controls
+namespace Foreman.Views.UserControls
 {
-    public interface IModSettingsControl : ISettingsControl
+    public interface IModSettingsUserControl : ISettingsUserControl
     {
         event EventHandler DirectoryButtonPressed;
         event EventHandler DirectoryChanged;
         event EventHandler RadioButtonChanged;
         event EventHandler SelectedModChanged;
+        event EventHandler CheckedModsChanged;
 
         string InfoLabel { set; }
         string InfoValue { set; }
@@ -22,7 +22,7 @@ namespace Foreman.Views.Controls
         bool RadioUseModListSelected { get; set; }
         CheckedModListBoxItem[] ModList { set; get; }
         string SelectedMod { get; }
-        TreeNode ModProperties { set; }
+        //TreeNode[] ModInfoProperties { set; }
         bool CustomModSelectionEnabled { set; }
     }
 }

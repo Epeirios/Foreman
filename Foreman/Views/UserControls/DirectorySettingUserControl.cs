@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Foreman.Views.Controls
+namespace Foreman.Views.UserControls
 {
-    public partial class DirectorySettingControl : UserControl, IDirectorySettingControl
+    public partial class DirectorySettingUserControl : UserControl, IDirectorySettingsUserControl
     {
-        public DirectorySettingControl()
+        public DirectorySettingUserControl()
         {
             InitializeComponent();
         }
